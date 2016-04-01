@@ -1,0 +1,55 @@
+#ifndef __CONST_MENU_APV_ZMN__
+#define __CONST_MENU_APV_ZMN__
+
+#define EKRAN_SETPOINT_APV_ZMN_GROUP1   (EKRAN_SETPOINT_ZZ_GROUP4 + 1)
+#define EKRAN_SETPOINT_APV_ZMN_GROUP2   (EKRAN_SETPOINT_APV_ZMN_GROUP1 + 1)
+#define EKRAN_SETPOINT_APV_ZMN_GROUP3   (EKRAN_SETPOINT_APV_ZMN_GROUP2 + 1)
+#define EKRAN_SETPOINT_APV_ZMN_GROUP4   (EKRAN_SETPOINT_APV_ZMN_GROUP3 + 1)
+#define EKRAN_TIMEOUT_APV_ZMN_GROUP1    (EKRAN_TIMEOUT_APV_GROUP4      + 1)
+#define EKRAN_TIMEOUT_APV_ZMN_GROUP2    (EKRAN_TIMEOUT_APV_ZMN_GROUP1  + 1)
+#define EKRAN_TIMEOUT_APV_ZMN_GROUP3    (EKRAN_TIMEOUT_APV_ZMN_GROUP2  + 1)
+#define EKRAN_TIMEOUT_APV_ZMN_GROUP4    (EKRAN_TIMEOUT_APV_ZMN_GROUP3  + 1)
+#define EKRAN_CONTROL_APV_ZMN           (EKRAN_CONTROL_APV  + 1)
+
+#define MAX_ROW_FOR_SETPOINT_APV_ZMN          3
+#define MAX_ROW_FOR_TIMEOUT_APV_ZMN           3
+#define MAX_ROW_FOR_CONTROL_APV_ZMN           1
+
+#define INDEX_ML_STPAPV_ZMN1                  0
+#define INDEX_ML_STPAPV_ZMN2                  1
+#define INDEX_ML_STPAPV_ZMN_MAX_KRATN         2
+
+#define INDEX_ML_TMOAPV_ZMN1                  0
+#define INDEX_ML_TMOAPV_ZMN2                  1
+#define INDEX_ML_TMOAPV_ZMN_ZAVERSHENNJA      2
+
+#define COL_SETPOINT_APV_ZMN1_BEGIN           5
+#define COL_SETPOINT_APV_ZMN1_COMMA           8
+#define COL_SETPOINT_APV_ZMN1_END             9
+
+#define COL_SETPOINT_APV_ZMN2_BEGIN           5
+#define COL_SETPOINT_APV_ZMN2_COMMA           8
+#define COL_SETPOINT_APV_ZMN2_END             9
+
+#define COL_SETPOINT_APV_ZMN_MAX_KRATN_BEGIN  6
+#define COL_SETPOINT_APV_ZMN_MAX_KRATN_END    8
+
+#define COL_TMO_APV_ZMN1_BEGIN                4
+#define COL_TMO_APV_ZMN1_COMMA                6
+#define COL_TMO_APV_ZMN1_END                  8
+
+#define COL_TMO_APV_ZMN2_BEGIN                4
+#define COL_TMO_APV_ZMN2_COMMA                6
+#define COL_TMO_APV_ZMN2_END                  8
+
+#define COL_TMO_APV_ZMN_ZAVERSHENNJA_BEGIN    4
+#define COL_TMO_APV_ZMN_ZAVERSHENNJA_COMMA    7
+#define COL_TMO_APV_ZMN_ZAVERSHENNJA_END      9
+
+#define INDEX_CTR_APV_ZMN                     0
+#define CTR_APV_ZMN                           (1 << INDEX_CTR_APV_ZMN)
+
+
+#define CTR_APV_ZMN_MASKA                (CTR_APV_ZMN)
+
+#endif

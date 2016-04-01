@@ -1,0 +1,72 @@
+#ifndef __CONST_MENU_AVR__
+#define __CONST_MENU_AVR__
+
+#define EKRAN_SETPOINT_AVR_GROUP1   (EKRAN_SETPOINT_UMAX_GROUP4 + 1)
+#define EKRAN_SETPOINT_AVR_GROUP2   (EKRAN_SETPOINT_AVR_GROUP1  + 1)
+#define EKRAN_SETPOINT_AVR_GROUP3   (EKRAN_SETPOINT_AVR_GROUP2  + 1)
+#define EKRAN_SETPOINT_AVR_GROUP4   (EKRAN_SETPOINT_AVR_GROUP3  + 1)
+#define EKRAN_TIMEOUT_AVR_GROUP1    (EKRAN_TIMEOUT_UMAX_GROUP4  + 1)
+#define EKRAN_TIMEOUT_AVR_GROUP2    (EKRAN_TIMEOUT_AVR_GROUP1   + 1)
+#define EKRAN_TIMEOUT_AVR_GROUP3    (EKRAN_TIMEOUT_AVR_GROUP2   + 1)
+#define EKRAN_TIMEOUT_AVR_GROUP4    (EKRAN_TIMEOUT_AVR_GROUP3   + 1)
+#define EKRAN_CONTROL_AVR           (EKRAN_CONTROL_UMAX  + 1)
+
+#define MAX_ROW_FOR_SETPOINT_AVR        5
+#define MAX_ROW_FOR_TIMEOUT_AVR         4
+#define MAX_ROW_FOR_CONTROL_AVR         2
+
+#define INDEX_ML_STPAVR_MIN1            0
+#define INDEX_ML_STPAVR_MAX1            1
+#define INDEX_ML_STPAVR_MIN2            2
+#define INDEX_ML_STPAVR_MAX2            3
+#define INDEX_ML_STPAVR_MAX_KRATN       4
+
+#define INDEX_ML_TMOAVR_OL              0
+#define INDEX_ML_TMOAVR_RL              1
+#define INDEX_ML_TMOAVR_ZAVERSHENNJA    2
+#define INDEX_ML_TMOAVR_RESET_BLK       3
+
+#define COL_SETPOINT_AVR_MIN1_BEGIN     5
+#define COL_SETPOINT_AVR_MIN1_COMMA     8
+#define COL_SETPOINT_AVR_MIN1_END       9
+
+#define COL_SETPOINT_AVR_MAX1_BEGIN     5
+#define COL_SETPOINT_AVR_MAX1_COMMA     8
+#define COL_SETPOINT_AVR_MAX1_END       9
+
+#define COL_SETPOINT_AVR_MIN2_BEGIN     5
+#define COL_SETPOINT_AVR_MIN2_COMMA     8
+#define COL_SETPOINT_AVR_MIN2_END       9
+
+#define COL_SETPOINT_AVR_MAX2_BEGIN     5
+#define COL_SETPOINT_AVR_MAX2_COMMA     8
+#define COL_SETPOINT_AVR_MAX2_END       9
+
+#define COL_SETPOINT_AVR_MAX_KRATN_BEGIN  6
+#define COL_SETPOINT_AVR_MAX_KRATN_END    8
+
+#define COL_TMO_AVR_OL_BEGIN            4
+#define COL_TMO_AVR_OL_COMMA            6
+#define COL_TMO_AVR_OL_END              8
+
+#define COL_TMO_AVR_RL_BEGIN            4
+#define COL_TMO_AVR_RL_COMMA            6
+#define COL_TMO_AVR_RL_END              8
+
+#define COL_TMO_AVR_ZAVERSHENNJA_BEGIN  4
+#define COL_TMO_AVR_ZAVERSHENNJA_COMMA  7
+#define COL_TMO_AVR_ZAVERSHENNJA_END    9
+
+#define COL_TMO_AVR_RESET_BLK_BEGIN     4
+#define COL_TMO_AVR_RESET_BLK_COMMA     6
+#define COL_TMO_AVR_RESET_BLK_END       8
+
+#define INDEX_CTR_AVR                           0
+#define CTR_AVR                                 (1 << INDEX_CTR_AVR)
+#define INDEX_CTR_AVR_OTKL_BLK_VID_ZAHYSTIV     1
+#define CTR_AVR_OTKL_BLK_VID_ZAHYSTIV           (1 << INDEX_CTR_AVR_OTKL_BLK_VID_ZAHYSTIV)
+
+#define CTR_AVR_MASKA                           (CTR_AVR                       |\
+                                                 CTR_AVR_OTKL_BLK_VID_ZAHYSTIV)
+
+#endif
