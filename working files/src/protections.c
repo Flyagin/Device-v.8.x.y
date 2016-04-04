@@ -62,7 +62,7 @@ inline unsigned int get_order(int value)
 /*****************************************************/
 //Розрахунок кореня квадратного методом половинного ділення  з прогнозуванням розрядності числа
 /*****************************************************/
-inline unsigned int sqrt_64(unsigned long long y)
+unsigned int sqrt_64(unsigned long long y)
 {
    unsigned int b;
    unsigned int a;
