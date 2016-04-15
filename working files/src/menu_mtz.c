@@ -1492,19 +1492,19 @@ void make_ekran_control_mtz()
           else if (index_ctr == INDEX_ML_CTRMTZ_3_TYPE) value = point->type_mtz3;
           else if (index_ctr == INDEX_ML_CTRMTZ_4_TYPE) value = point->type_mtz4;
 
-          const unsigned char information[MAX_NAMBER_LANGUAGE][6][MAX_COL_LCD] = 
+          const unsigned char information[MAX_NAMBER_LANGUAGE][8][MAX_COL_LCD] = 
           {
-            {"    Простая     ", "  Направленная  ", " С пуском по U  ", " Завис.(Тип A)  ", " Завис.(Тип B)  ", " Завис.(Тип C)  "},
-            {"     Проста     ", "   Направлена   ", " Із пуском по U ", " Залежна (Тип A)", " Залежна (Тип B)", " Залежна (Тип C)"},
-            {"    Простая     ", "  Направленная  ", " С пуском по U  ", "  Dep.(Type A)  ", "  Dep.(Type B)  ", "  Dep.(Type C)  "},
-            {"    Простая     ", "  Направленная  ", " С пуском по U  ", " Завис.(Тип A)  ", " Завис.(Тип B)  ", " Завис.(Тип C)  "}
+            {"    Простая     ", "  Направленная  ", " С пуском по U  ", " Завис.(Тип A)  ", " Завис.(Тип B)  ", " Завис.(Тип C)  ", " Завис.(РТ-80)  ", " Завис.(РТВ-I)  "},
+            {"     Проста     ", "   Направлена   ", " Із пуском по U ", " Залежна (Тип A)", " Залежна (Тип B)", " Залежна (Тип C)", " Залежна (РТ-80)", " Залежна (РТВ-I)"},
+            {"    Простая     ", "  Направленная  ", " С пуском по U  ", "  Dep.(Type A)  ", "  Dep.(Type B)  ", "  Dep.(Type C)  ", "  Dep.(RT-80)   ", "  Dep.(RTV-I)   "},
+            {"    Простая     ", "  Направленная  ", " С пуском по U  ", " Завис.(Тип A)  ", " Завис.(Тип B)  ", " Завис.(Тип C)  ", " Завис.(РТ-80)  ", " Завис.(РТВ-I)  "}
           };
-          const unsigned int cursor_x[MAX_NAMBER_LANGUAGE][6] = 
+          const unsigned int cursor_x[MAX_NAMBER_LANGUAGE][8] = 
           {
-            {3, 1, 0, 0, 0, 0},
-            {4, 2, 0, 0, 0, 0},
-            {3, 1, 0, 1, 1, 1},
-            {3, 1, 0, 0, 0, 0}
+            {3, 1, 0, 0, 0, 0, 0, 0},
+            {4, 2, 0, 0, 0, 0, 0, 0},
+            {3, 1, 0, 1, 1, 1, 1, 1},
+            {3, 1, 0, 0, 0, 0, 0, 0}
           };
           
           for (unsigned int j = 0; j<MAX_COL_LCD; j++) working_ekran[i][j] = information[index_language][value][j];

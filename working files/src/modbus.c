@@ -6459,9 +6459,9 @@ inline unsigned int Set_data(unsigned short int data, unsigned int address_data,
         temp_value = data;
         
 #if (TYPE_MTZ_SIMPLE != 0)          
-        if ((temp_value >= TYPE_MTZ_SIMPLE) && (temp_value <= TYPE_MTZ_DEPENDENT_C))
+        if ((temp_value >= TYPE_MTZ_SIMPLE) && (temp_value <= TYPE_MTZ_DEPENDENT_RTV_I))
 #else
-        if (temp_value <= TYPE_MTZ_DEPENDENT_C)
+        if (temp_value <= TYPE_MTZ_DEPENDENT_RTV_I)
 #endif            
           target_label->type_mtz2 = temp_value;
         else

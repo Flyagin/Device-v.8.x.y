@@ -19,6 +19,8 @@
 #define TYPE_MTZ_DEPENDENT_A           3
 #define TYPE_MTZ_DEPENDENT_B           4
 #define TYPE_MTZ_DEPENDENT_C           5
+#define TYPE_MTZ_DEPENDENT_RT_80       6
+#define TYPE_MTZ_DEPENDENT_RTV_I       7
 
 #define SETPOINT_MTZ1_MIN             500
 #define SETPOINT_MTZ1_MAX             150000

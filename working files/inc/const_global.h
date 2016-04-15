@@ -1005,8 +1005,8 @@ NUMBER_ODYNYCI_VYMIRJUVANNJA
 //Версія програмного забезпечення
 /*****************************************/
 #define VERSIA_PZ                                             8
-#define MODYFIKACIA_VERSII_PZ                                 2
-#define ZBIRKA_VERSII_PZ                                      11
+#define MODYFIKACIA_VERSII_PZ                                 3
+#define ZBIRKA_VERSII_PZ                                      0
 /*****************************************/
 
 /*****************************************/

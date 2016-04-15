@@ -7820,10 +7820,10 @@ void main_manu_function(void)
                 {
                   if (
                       ((edition_settings.control_mtz  & ((unsigned int)(~CTR_MTZ_MASKA))) == 0) &&
-                      (edition_settings.type_mtz1 <= TYPE_MTZ_VOLTAGE    ) &&
-                      (edition_settings.type_mtz2 <= TYPE_MTZ_DEPENDENT_C) &&
-                      (edition_settings.type_mtz3 <= TYPE_MTZ_VOLTAGE    ) &&
-                      (edition_settings.type_mtz4 <= TYPE_MTZ_VOLTAGE    )
+                      (edition_settings.type_mtz1 <= TYPE_MTZ_VOLTAGE        ) &&
+                      (edition_settings.type_mtz2 <= TYPE_MTZ_DEPENDENT_RTV_I) &&
+                      (edition_settings.type_mtz3 <= TYPE_MTZ_VOLTAGE        ) &&
+                      (edition_settings.type_mtz4 <= TYPE_MTZ_VOLTAGE        )
                      )   
                   {
                     if (
@@ -12731,7 +12731,7 @@ void main_manu_function(void)
                 }
                 else if (current_ekran.index_position == INDEX_ML_CTRMTZ_2_TYPE)
                 {
-                  if (++edition_settings.type_mtz2 > TYPE_MTZ_DEPENDENT_C) edition_settings.type_mtz2 = TYPE_MTZ_SIMPLE;
+                  if (++edition_settings.type_mtz2 > TYPE_MTZ_DEPENDENT_RTV_I) edition_settings.type_mtz2 = TYPE_MTZ_SIMPLE;
                 }
                 else if (current_ekran.index_position == INDEX_ML_CTRMTZ_3_TYPE)
                 {
@@ -14148,7 +14148,7 @@ void main_manu_function(void)
                 }
                 else if (current_ekran.index_position == INDEX_ML_CTRMTZ_2_TYPE)
                 {
-                  if (--edition_settings.type_mtz2 < 0) edition_settings.type_mtz2 = TYPE_MTZ_DEPENDENT_C;
+                  if (--edition_settings.type_mtz2 < 0) edition_settings.type_mtz2 = TYPE_MTZ_DEPENDENT_RTV_I;
                 }
                 else if (current_ekran.index_position == INDEX_ML_CTRMTZ_3_TYPE)
                 {
