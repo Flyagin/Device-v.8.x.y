@@ -1012,11 +1012,12 @@ NUMBER_ODYNYCI_VYMIRJUVANNJA
 /*****************************************/
 //×àñ êîìï³ëÿö³¿
 /*****************************************/
-#define YEAR_VER                                              0x15
-#define MONTH_VER                                             0x12
-#define DAY_VER                                               0x10
-#define HOUR_VER                                              0x11
-#define MINUTE_VER                                            0x00
+#define YEAR_VER                                              ((__DATE__[9] != ' ') ? (((__DATE__[9] - 0x30) << 4) | (__DATE__[10] - 0x30)) : (__DATE__[10] - 0x30))
+#define MONTH_VER                                             str_to_int_DATE_Mmm()
+#define DAY_VER                                               ((__DATE__[4] != ' ') ? (((__DATE__[4] - 0x30) << 4) | (__DATE__[5] - 0x30)) : (__DATE__[5] - 0x30))
+#define HOUR_VER                                              (((__TIME__[0] - 0x30) << 4) | (__TIME__[1] - 0x30))
+#define MINUTE_VER                                            (((__TIME__[3] - 0x30) << 4) | (__TIME__[4] - 0x30))
+#define SECOND_VER                                            (((__TIME__[6] - 0x30) << 4) | (__TIME__[7] - 0x30))
 /*****************************************/
 
 /*****************************************/

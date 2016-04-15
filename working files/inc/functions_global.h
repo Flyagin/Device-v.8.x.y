@@ -308,5 +308,7 @@ void total_error_sw_fixed(unsigned int);
 
 void setpoints_selecting(unsigned int*, unsigned int);
 
+int str_to_int_DATE_Mmm(void);
+
 #endif
 

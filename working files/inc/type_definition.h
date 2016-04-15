@@ -97,7 +97,7 @@ typedef struct
            int setpoint_mtz_1_angle_sin[NUMBER_GROUP_USTAVOK];  //Уставка МТЗ першої ступені (синус кута довороту)
   unsigned int setpoint_mtz_1_po_napruzi[NUMBER_GROUP_USTAVOK]; //Уставка МТЗ першої ступені (по напрузі)
   unsigned int setpoint_mtz_1_U[NUMBER_GROUP_USTAVOK];          //Уставка МТЗ першої ступені (напруга пуску)
-  int type_mtz2;                                                //Тип МТЗ2 (0 - Проста, 1 - Направлена, 2 -  З пуском по напрузі, 3 - Залежна А, 4 - Залежна В, 5 - Залежна С, 6 - РТ-80, 7- РТВ-I)
+  int type_mtz2;                                                //Тип МТЗ2 (0 - Проста, 1 - Направлена, 2 -  З пуском по напрузі, 3 - Залежна А, 4 - Залежна В, 5 - Залежна С, 6 - РТ-80, 7- РТВ-1)
   unsigned int setpoint_mtz_2[NUMBER_GROUP_USTAVOK];            //Уставка МТЗ другої ступені
   unsigned int setpoint_mtz_2_n_vpered[NUMBER_GROUP_USTAVOK];   //Уставка МТЗ другої ступені (направлена:вперед)
   unsigned int setpoint_mtz_2_n_nazad[NUMBER_GROUP_USTAVOK];    //Уставка МТЗ другої ступені (направлена:назад)
