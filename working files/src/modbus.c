@@ -4515,12 +4515,12 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
       }
     case MA_STP_APV_ZMN1:
       {
-        temp_value = current_settings.setpoint_avr_min1[num_gr]/100;
+        temp_value = current_settings.setpoint_apv_zmn1[num_gr]/100;
         break;
       }
     case MA_STP_APV_ZMN2:
       {
-        temp_value = current_settings.setpoint_avr_min2[num_gr]/100;
+        temp_value = current_settings.setpoint_apv_zmn2[num_gr]/100;
         break;
       }
     case MA_TO_APV_ZMN1:
