@@ -2767,8 +2767,8 @@ inline void mtz_handler(unsigned int *activated_functions, unsigned int number_g
            PORIG_CHUTLYVOSTI_VOLTAGE :
            PORIG_CHUTLYVOSTI_VOLTAGE * U_DOWN / 100;
     
-    tmp_value |= ((measurement[IM_UAB] <= po_block_u_mtzn_x_setpoint) &&
-                  (measurement[IM_UBC] <= po_block_u_mtzn_x_setpoint) &&
+    tmp_value |= ((measurement[IM_UAB] <= po_block_u_mtzn_x_setpoint) ||
+                  (measurement[IM_UBC] <= po_block_u_mtzn_x_setpoint) ||
                   (measurement[IM_UCA] <= po_block_u_mtzn_x_setpoint)) << 14; //ÏÎ U áëîê. ÌÒÇÍõ
     
     //ÏÎ U áëîê. ÌÒÇÍõ
