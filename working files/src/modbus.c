@@ -6238,6 +6238,21 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
             temp_value = ((*(point_to_buffer + 24))  << 8) | (*(point_to_buffer + 23));
             break;
           }
+        case 12:
+          {
+            temp_value = ((*(point_to_buffer + 26))  << 8) | (*(point_to_buffer + 25));
+            break;
+          }
+        case 13:
+          {
+            temp_value = ((*(point_to_buffer + 28))  << 8) | (*(point_to_buffer + 27));
+            break;
+          }
+        case 14:
+          {
+            temp_value = ((*(point_to_buffer + 30))  << 8) | (*(point_to_buffer + 29));
+            break;
+          }
         default:
           {
             //якщо немаЇ помилок, то сюди б програма не мала заходити
