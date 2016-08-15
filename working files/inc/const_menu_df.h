@@ -65,11 +65,11 @@
 #define INDEX_ML_LIST_TYPE_SOURCE_MINUS_DF    1
 #define INDEX_ML_LIST_TYPE_SOURCE_BLK_DF      2
 
-#define COL_TMO_DF_PAUSE_BEGIN                4
+#define COL_TMO_DF_PAUSE_BEGIN                3
 #define COL_TMO_DF_PAUSE_COMMA                6
 #define COL_TMO_DF_PAUSE_END                  8
 
-#define COL_TMO_DF_WORK_BEGIN                 4
+#define COL_TMO_DF_WORK_BEGIN                 3
 #define COL_TMO_DF_WORK_COMMA                 6
 #define COL_TMO_DF_WORK_END                   8
 

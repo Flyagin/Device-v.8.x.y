@@ -1,4 +1,4 @@
-#ifndef __CONST_MENU_MTZ__
+ #ifndef __CONST_MENU_MTZ__
 #define __CONST_MENU_MTZ__
 
 #define EKRAN_SETPOINT_MTZ_GROUP1   (EKRAN_CHOSE_SETTINGS + 1)

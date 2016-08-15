@@ -206,14 +206,14 @@ void make_ekran_timeout_df(unsigned int number_df)
         for (unsigned int j = 0; j<MAX_COL_LCD; j++) working_ekran[i][j] = name_string[index_language][index_of_ekran>>1][j];
         if ((index_of_ekran>>1) == INDEX_ML_TMO_DF_PAUSE)
         {
-          vaga = 10000; //максимальний ваговий коефіцієнт для вилілення старшого розряду для таймера павзи
+          vaga = 100000; //максимальний ваговий коефіцієнт для вилілення старшого розряду для таймера павзи
           if (current_ekran.edition == 0) value = current_settings.timeout_pause_df[number_df]; //у змінну value поміщаємо значення таймера павзи
           else value = edition_settings.timeout_pause_df[number_df];
           first_symbol = 0; //помічаємо, що ще ніодин значущий символ не виведений
         }
         else if ((index_of_ekran>>1) == INDEX_ML_TMO_DF_WORK)
         {
-          vaga = 10000; //максимальний ваговий коефіцієнт для вилілення старшого розряду для таймера роботи
+          vaga = 100000; //максимальний ваговий коефіцієнт для вилілення старшого розряду для таймера роботи
           if (current_ekran.edition == 0) value = current_settings.timeout_work_df[number_df]; //у змінну value поміщаємо значення таймера роботи
           else value = edition_settings.timeout_work_df[number_df];
           first_symbol = 0; //помічаємо, що ще ніодин значущий символ не виведений

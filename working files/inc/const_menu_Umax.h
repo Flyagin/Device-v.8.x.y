@@ -29,11 +29,11 @@
 #define COL_SETPOINT_UMAX2_COMMA         8
 #define COL_SETPOINT_UMAX2_END           9
 
-#define COL_TMO_UMAX1_BEGIN              4
+#define COL_TMO_UMAX1_BEGIN              3
 #define COL_TMO_UMAX1_COMMA              6
 #define COL_TMO_UMAX1_END                8
 
-#define COL_TMO_UMAX2_BEGIN              4
+#define COL_TMO_UMAX2_BEGIN              3
 #define COL_TMO_UMAX2_COMMA              6
 #define COL_TMO_UMAX2_END                8
 
