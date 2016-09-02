@@ -611,6 +611,8 @@
 #define BIT_MA_BLOCK_AVR_VID_ZAKHYSTIV          60247
 #define BIT_MA_BLOCK_KRATN_AVR                  60248
 #define BIT_MA_PUSK_AVR                         60249
+#define BIT_MA_PUSK_AVR_1                       60250
+#define BIT_MA_PUSK_AVR_2                       60251
 
 #define BIT_MA_ACHR_CHAPV_VID_DV                60256
 #define BIT_MA_BLOCK_ACHR                       60257

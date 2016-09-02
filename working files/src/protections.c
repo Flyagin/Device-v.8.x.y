@@ -4121,6 +4121,8 @@ void avr_handler(unsigned int *activated_functions, unsigned int number_group_st
     _OR2(tmp_value, 31, tmp_value, 0, tmp_value, 1);
     //Ïóñê ÀÂÐ
     
+    if (_GET_OUTPUT_STATE(tmp_value, 0 )) _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_1);
+    if (_GET_OUTPUT_STATE(tmp_value, 31)) _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_2);
     _Bool pusk_avr = _GET_OUTPUT_STATE(tmp_value, 1);
     if (pusk_avr) {
       _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_PUSK_AVR);

@@ -176,6 +176,8 @@ void convert_order_list_function_to_gmm(unsigned int* input_array, unsigned shor
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PO_UAVR_MAX2           , (BIT_MA_PO_UAVR_MAX2            - BIT_MA_CURRENT_AF_BASE));
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_BLOCK_KRATN_AVR        , (BIT_MA_BLOCK_KRATN_AVR         - BIT_MA_CURRENT_AF_BASE));
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PUSK_AVR               , (BIT_MA_PUSK_AVR                - BIT_MA_CURRENT_AF_BASE));
+  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_1             , (BIT_MA_PUSK_AVR_1              - BIT_MA_CURRENT_AF_BASE));
+  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_2             , (BIT_MA_PUSK_AVR_2              - BIT_MA_CURRENT_AF_BASE));
 
   //АЧР/ЧАПВ
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_ACHR_CHAPV_VID_DV, (BIT_MA_ACHR_CHAPV_VID_DV - BIT_MA_CURRENT_AF_BASE));
@@ -1711,6 +1713,16 @@ unsigned int convert_order_list_oldr_to_gmm(unsigned int number, unsigned int nu
     case RANG_OUTPUT_LED_DF_REG_PUSK_AVR:
       {
         rezultat = BIT_MA_PUSK_AVR;
+        break;
+      }
+    case RANG_OUTPUT_LED_DF_REG_PUSK_AVR_1:
+      {
+        rezultat = BIT_MA_PUSK_AVR_1;
+        break;
+      }
+    case RANG_OUTPUT_LED_DF_REG_PUSK_AVR_2:
+      {
+        rezultat = BIT_MA_PUSK_AVR_2;
         break;
       }
     case RANG_OUTPUT_LED_DF_REG_PO_U_OL:
@@ -3711,6 +3723,16 @@ unsigned int save_new_rang_oldr_from_gmm(unsigned int number, unsigned int numbe
     case BIT_MA_PUSK_AVR:
       {
         _SET_BIT(set_array_rang, RANG_OUTPUT_LED_DF_REG_PUSK_AVR);
+        break;
+      }
+    case BIT_MA_PUSK_AVR_1:
+      {
+        _SET_BIT(set_array_rang, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_1);
+        break;
+      }
+    case BIT_MA_PUSK_AVR_2:
+      {
+        _SET_BIT(set_array_rang, RANG_OUTPUT_LED_DF_REG_PUSK_AVR_2);
         break;
       }
     case BIT_MA_PO_U_OL:
@@ -10777,6 +10799,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -10952,6 +10976,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -11127,6 +11153,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -11302,6 +11330,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -12134,6 +12164,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -12309,6 +12341,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -12484,6 +12518,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
@@ -12659,6 +12695,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                         " ПО U АВР макс.2",
                         "  Блок.кр.АВР   ",
                         "    Пуск АВР    ",
+                        "   Пуск АВР 1   ",
+                        "   Пуск АВР 2   ",
                         "    ПО U ОЛ     ",
                         "      U ОЛ      ",
                         "    ПО U РЛ     ",
