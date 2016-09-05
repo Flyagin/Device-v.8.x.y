@@ -10613,6 +10613,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
           case (172 + NUMBER_ANALOG_CANALES):
           case (173 + NUMBER_ANALOG_CANALES):
           case (174 + NUMBER_ANALOG_CANALES):
+          case (175 + NUMBER_ANALOG_CANALES):
+          case (176 + NUMBER_ANALOG_CANALES):
             {
               if (length <= 19)
               {
@@ -11978,6 +11980,8 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
           case 172:
           case 173:
           case 174:
+          case 175:
+          case 176:
             {
               if (length <= 19)
               {
