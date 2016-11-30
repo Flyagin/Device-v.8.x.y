@@ -71,8 +71,10 @@ extern unsigned int vref_adc1_moment_value[NUMBER_POINT];
 extern unsigned int vref_adc1_averange_sum;
 extern unsigned int vref_adc1;
 
-extern unsigned int vref_adc2_moment_value[NUMBER_POINT];
-extern unsigned int vref_adc2_averange_sum;
+extern const unsigned int index_VREF_ADC2[NUMBER_GND_ADC2];
+extern unsigned int vref_adc2_moment_value[NUMBER_VREF_ADC2][NUMBER_POINT];
+extern unsigned int vref_adc2_averange_sum[NUMBER_VREF_ADC2];
+extern unsigned int vref_adc2_averange[NUMBER_VREF_ADC2];
 extern unsigned int vref_adc2;
 
 extern unsigned int vdd_adc1_moment_value[NUMBER_POINT];

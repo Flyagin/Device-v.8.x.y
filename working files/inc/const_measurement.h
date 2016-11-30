@@ -96,12 +96,12 @@ Koef = --------------
 де:
 Ku - коефіцієнт трансформації і він рівний 1
 2500 - максимальне значення напруги у мілівольтах, яке може оцифрувати АЦП (у нас це є 2,5 В = 2500 мВ)
-R1 -  резистор, який визначає струм у первинній обмотці трансвформатора струму. Зараз стоїть 75 кОм
+R1 -  резистор, який визначає струм у первинній обмотці трансвформатора струму. Зараз стоїть 86.5(75) кОм
 R2 - резистор, який перетворює трансформований струм у напругу. Зараз стоїть 499 Ом
 1 - після перетворення струму в напругу як мінімум раз сигнвал проходить через підсилювач на операційному підсилювачі з коефіцієнтом підсилення "1"
 0xFFF - максимальне число, яке може видати АЦП
 
-Koef = 91,7586087926769289494740396544 (5872/64 = 91,75)
+Koef = 105.82826214088739138839339240141 (6773/64 = 105.828125)
 
 Множення на ці коефіцієнти переводять одиниці АЦП у мВ
 
@@ -109,13 +109,13 @@ Koef = 91,7586087926769289494740396544 (5872/64 = 91,75)
 Тому крім цього коефіцієнта треба ще поділити на корінь з двох.
 для простоти зробимо узагальнений коефіцієнт, що є результатом Koef_1 = Koef/sqrt(2)
 
-Koef_1 = 64,883134509545420915167731259667 (4152/64 = 64,875)
+Koef_1 = 74.831881801009052122160116719483 (4790/64 = 74.84375)
 */
-#define MNOGNYK_U                     5896//5872           
+#define MNOGNYK_U                     6773           
 #define VAGA_DILENNJA_U               6
-#define MNOGNYK_U_DIJUCHE             4185//4153           
+#define MNOGNYK_U_DIJUCHE             4790           
 #define VAGA_DILENNJA_U_DIJUCHE       6
-#define MNOGNYK_U_DIJUCHE_DOUBLE       65.390625
+#define MNOGNYK_U_DIJUCHE_DOUBLE      74.831881801009052122160116719483
 
 /*
 При роботі з ортогональними ми працюємо у поділках АЦП і сигналом підсиленим у 16 раз
@@ -131,10 +131,10 @@ Koef_1 = 64,883134509545420915167731259667 (4152/64 = 64,875)
       
 Ми хочемо отримати число з точністю до мОм. Тоді чисельник треба помножити на 1000
 
-результатом є число 769,44291230005515719801434087148 = 12311/16 (769,4375)
+результатом є число 880,67659496230924802353373781945
 Так як розрахунки проводяться над числами у форматі long long, то і константу я роблю у форматі long long
 */
-#define MNOGNYK_R_FLOAT                 769.44291230005515719801434087148f
+#define MNOGNYK_R_FLOAT                 880.67659496230924802353373781945f
 
 
 #define MAX_INDEX_DATA_FOR_OSCYLOGRAPH  10
@@ -161,20 +161,20 @@ Koef_1 = 64,883134509545420915167731259667 (4152/64 = 64,875)
 #define C_VREF_ADC1             14
 #define C_VDD_ADC1              15
 #define C_GND_ADC2_1            (0  + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_1             (1  + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_16            (2  + NUMBER_CANALs_ADC)
-#define C_Uc_1                  (3  + NUMBER_CANALs_ADC)
-#define C_Uc_16                 (4  + NUMBER_CANALs_ADC)
-#define C_Ub_1                  (5  + NUMBER_CANALs_ADC)
-#define C_Ub_16                 (6  + NUMBER_CANALs_ADC)
-#define C_Ua_1                  (7  + NUMBER_CANALs_ADC)
-#define C_Ua_16                 (8  + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_256           (9  + NUMBER_CANALs_ADC)
-#define C_GND_ADC2_2            (10 + NUMBER_CANALs_ADC)
-#define C_GND_ADC2_3            (11 + NUMBER_CANALs_ADC)
-#define C_GND_ADC2_4            (12 + NUMBER_CANALs_ADC)
-#define C_GND_ADC2_5            (13 + NUMBER_CANALs_ADC)
-#define C_VREF_ADC2             (14 + NUMBER_CANALs_ADC)
+#define C_Ua_1                  (1  + NUMBER_CANALs_ADC)
+#define C_Ua_16                 (2  + NUMBER_CANALs_ADC)
+#define C_Ub_1                  (3  + NUMBER_CANALs_ADC)
+#define C_Ub_16                 (4  + NUMBER_CANALs_ADC)
+#define C_Uc_1                  (5  + NUMBER_CANALs_ADC)
+#define C_Uc_16                 (6  + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_1           (7  + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_2           (8  + NUMBER_CANALs_ADC)
+#define C_Uab_TN2_1             (9  + NUMBER_CANALs_ADC)
+#define C_Uab_TN2_16            (10 + NUMBER_CANALs_ADC)
+#define C_Uab_TN2_256           (11 + NUMBER_CANALs_ADC)
+#define C_GND_ADC2_2            (12 + NUMBER_CANALs_ADC)
+#define C_GND_ADC2_3            (13 + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_3           (14 + NUMBER_CANALs_ADC)
 #define C_VDD_ADC2              (15 + NUMBER_CANALs_ADC)
 
 #define READ_VAL_1_3U0_VAL_2_Ubc_TN2     (                            \
@@ -234,10 +234,10 @@ Koef_1 = 64,883134509545420915167731259667 (4152/64 = 64,875)
                         (1 << C_GND_ADC2_1)             | \
                         (1 << C_GND_ADC2_2)             | \
                         (1 << C_GND_ADC2_3)             | \
-                        (1 << C_GND_ADC2_4)             | \
-                        (1 << C_GND_ADC2_5)             | \
-                        (1 << C_VREF_ADC2 )             |  \
-          (unsigned int)(1 << C_VDD_ADC2  )                \
+                        (1 << C_VREF_ADC2_1)            | \
+                        (1 << C_VREF_ADC2_2)            | \
+                        (1 << C_VREF_ADC2_3)            | \
+          (unsigned int)(1 << C_VDD_ADC2  )               \
                        )
 
 #define VAL_1_READ_BIT          0
@@ -248,7 +248,9 @@ Koef_1 = 64,883134509545420915167731259667 (4152/64 = 64,875)
 #define TEST_VAL_READ           (1 << TEST_VAL_READ_BIT)
 
 #define NUMBER_GND_ADC1         5
-#define NUMBER_GND_ADC2         5
+#define NUMBER_GND_ADC2         3
+
+#define NUMBER_VREF_ADC2        3
 
 #define N_VAL_1                   0
 #define N_VAL_2                   1
