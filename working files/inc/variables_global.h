@@ -46,6 +46,7 @@ ROZSHYRENA_VYBORKA rozshyrena_vyborka;
 
 unsigned int command_word_adc = 0, command_word_adc_work = 0, active_index_command_word_adc = 0;
 unsigned int state_reading_ADCs = STATE_READING_ADCs_NONE;
+unsigned int channel_request, channel_answer;
 
 uint32_t step_val_1 = TIM5_CCR1_2_3_VAL;
 uint32_t step_val_2 = TIM5_CCR1_2_3_VAL;

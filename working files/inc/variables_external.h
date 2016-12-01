@@ -9,6 +9,7 @@ extern ROZSHYRENA_VYBORKA rozshyrena_vyborka;
 
 extern unsigned int command_word_adc, command_word_adc_work, active_index_command_word_adc;
 extern unsigned int state_reading_ADCs;
+extern unsigned int channel_request, channel_answer;
 
 extern uint32_t step_val_1;
 extern uint32_t step_val_2;

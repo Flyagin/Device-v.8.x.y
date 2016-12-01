@@ -177,6 +177,9 @@ void control_reading_ADCs(unsigned int canal_3U0_Ubc_TN2)
     while ((SPI_ADC->SR & SPI_I2S_FLAG_TXE) == RESET);      //Очікуємо, поки SPI стане вільним
     GPIO_SPI_ADC->BSRRH = GPIO_NSSPin_ADC;                  //Виставляємо chip_select
     SPI_ADC->DR = (uint16_t)command_word;                   //Відправляємо командне число
+    
+    channel_answer = channel_request;
+    channel_request = (active_adc_new - 1)*NUMBER_CANALs_ADC + ((command_word >> 10) & 0xf);
   }
   else 
   {
@@ -202,6 +205,8 @@ void control_reading_ADCs(unsigned int canal_3U0_Ubc_TN2)
       while ((SPI_ADC->SR & SPI_I2S_FLAG_TXE) == RESET);      //Очікуємо, поки SPI стане вільним
       GPIO_SPI_ADC->BSRRH = GPIO_NSSPin_ADC;                  //Виставляємо chip_select
       SPI_ADC->DR = 0;                                        //Відправляємо число (але так, щоб нове контрольне слово не записувалося)
+    
+      channel_answer = channel_request;
     }
   }
 }
@@ -961,6 +966,9 @@ void SPI_ADC_IRQHandler(void)
   {
     unsigned int shift = ((GPIO_SELECT_ADC->ODR & GPIO_SELECTPin_ADC) == 0) ? 0 : NUMBER_CANALs_ADC;
     unsigned int number_canal = shift + ((read_value >> 12) & 0xf);
+    
+    if(channel_answer != number_canal) _SET_BIT(set_diagnostyka, ERROR_SPI_ADC_BIT);
+    else _SET_BIT(clear_diagnostyka, ERROR_SPI_ADC_BIT);
 
     output_adc[number_canal].tick = tick_output_adc_p;
     output_adc[number_canal].value = read_value & 0xfff;
