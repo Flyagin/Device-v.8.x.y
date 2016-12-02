@@ -942,32 +942,19 @@ void start_settings_peripherals(void)
   GPIO_InitStructure.GPIO_Pin = KEYBOARD_SW_A_PIN;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(KEYBOARD, &GPIO_InitStructure);
+  GPIO_Init(KEYBOARD_SW_A, &GPIO_InitStructure);
 
   /*SW_B клавіатури */
   GPIO_InitStructure.GPIO_Pin = KEYBOARD_SW_B_PIN;
-  GPIO_Init(KEYBOARD, &GPIO_InitStructure);
+  GPIO_Init(KEYBOARD_SW_B, &GPIO_InitStructure);
 
   /*SW_C клавіатури */
   GPIO_InitStructure.GPIO_Pin = KEYBOARD_SW_C_PIN;
-  GPIO_Init(KEYBOARD, &GPIO_InitStructure);
+  GPIO_Init(KEYBOARD_SW_C, &GPIO_InitStructure);
 
   /*Контроль живлення */
   GPIO_InitStructure.GPIO_Pin = POWER_CTRL_PIN;
   GPIO_Init(POWER_CTRL, &GPIO_InitStructure);
-//
-//  /* Configure SPI_ADC MISO*/
-//  GPIO_InitStructure.GPIO_Pin = GPIO_MISOPin_ADC;
-//  GPIO_Init(GPIO_SPI_ADC, &GPIO_InitStructure);
-//
-//  /* Configure SPI_DF MISO*/
-//  GPIO_InitStructure.GPIO_Pin = GPIO_MISOPin_DF;
-//  GPIO_Init(GPIO_SPI_DF, &GPIO_InitStructure);
-//  
-//
-//  /* Configure USART_RS485 Rx as input floating */
-//  GPIO_InitStructure.GPIO_Pin = GPIO_RxPin_RS485;
-//  GPIO_Init(GPIO_USART_RS485, &GPIO_InitStructure);
   /**************/
 
   /**************/
@@ -995,11 +982,11 @@ void start_settings_peripherals(void)
   GPIO_InitStructure.GPIO_Pin = GPIO_SCKPin_DF | GPIO_MISOPin_DF | GPIO_MOSIPin_DF;
   GPIO_Init(GPIO_SPI_DF, &GPIO_InitStructure);
 
-  //Перекидаємо піни PA9/Tx_RS-485, PA10/Rx_RS-485
+  //Перекидаємо піни PA2/Tx_RS-485, PA3/Rx_RS-485
   GPIO_PinAFConfig(GPIO_USART_RS485, GPIO_TxPin_RS485Source, GPIO_AF_USART_RS_485);
   GPIO_PinAFConfig(GPIO_USART_RS485, GPIO_RxPin_RS485Source, GPIO_AF_USART_RS_485);
 
-  /* Configure USART_RS485 Tx as alternate function push-pull */
+  /* Configure USART_RS485 Rx/Tx as alternate function push-pull */
   GPIO_InitStructure.GPIO_Pin = GPIO_TxPin_RS485 | GPIO_RxPin_RS485;
   GPIO_Init(GPIO_USART_RS485, &GPIO_InitStructure);
   /**********************/
@@ -1497,16 +1484,12 @@ void start_settings_peripherals(void)
       //Повне роозблоковування обміну з мікросхемами для драйверу I2C
       _CLEAR_BIT(control_i2c_taskes, TASK_BLK_OPERATION_BIT);
     }
-  }  low_speed_i2c = 0xff;
-
+  }
   /**********************/
   
-  /**********************/
   //Переконфігуровуємо I2C
-  /**********************/
   low_speed_i2c = 0xff;
   Configure_I2C(I2C);
-  /**********************/
 
   /**********************/
   //Настроювання TIM2 на генерацію переривань кожні 1 мс для системи захистів

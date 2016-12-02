@@ -35,6 +35,9 @@ void Set_System(void)
                          RCC_AHB1Periph_GPIO_LCD_BL             |
                          RCC_AHB1Periph_GPIO_CON_L              |
                          RCC_AHB1Periph_GPIO_KEYBOARD           |
+                         RCC_AHB1Periph_GPIO_KEYBOARD_SW_A      |
+                         RCC_AHB1Periph_GPIO_KEYBOARD_SW_B      |
+                         RCC_AHB1Periph_GPIO_KEYBOARD_SW_C      |
                          RCC_AHB1Periph_GPIO_SELECT_ADC         |
                          RCC_AHB1Periph_GPIO_SPI_ADC            |
                          RCC_AHB1Periph_GPIO_I2C                |

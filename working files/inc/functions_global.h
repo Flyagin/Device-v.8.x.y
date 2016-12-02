@@ -36,7 +36,7 @@ unsigned int write_command_to_lcd(unsigned char);
 unsigned int hd44780_gotoxy(unsigned char, unsigned char);
 unsigned int hd44780_puts_xy (unsigned char, unsigned char, unsigned char *);
 void view_whole_ekran(void);
-void check_state_key(uint16_t, unsigned int);
+void check_state_key(GPIO_TypeDef*, uint16_t, unsigned int);
 int index_language_in_array(int);
 
 void inc_or_dec_value(unsigned int *, unsigned int);
