@@ -109,7 +109,7 @@ unsigned int vref_adc1_moment_value[NUMBER_POINT];
 unsigned int vref_adc1_averange_sum = VREF_NORMAL_VALUE*NUMBER_POINT;
 unsigned int vref_adc1 = VREF_NORMAL_VALUE;
 
-const unsigned int index_VREF_ADC2[NUMBER_VREF_ADC2] = {C_VREF_ADC2_1, C_VREF_ADC2_2, C_VREF_ADC2_3, C_VREF_ADC2_4};
+const unsigned int index_VREF_ADC2[NUMBER_VREF_ADC2] = {C_VREF_ADC2_1/*, C_VREF_ADC2_2, C_VREF_ADC2_3, C_VREF_ADC2_4*/};
 unsigned int vref_adc2_moment_value[NUMBER_VREF_ADC2][NUMBER_POINT];
 unsigned int vref_adc2_averange_sum[NUMBER_VREF_ADC2];
 unsigned int vref_adc2_averange[NUMBER_VREF_ADC2];
