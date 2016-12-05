@@ -167,14 +167,14 @@ Koef_1 = 74.831881801009052122160116719483 (4790/64 = 74.84375)
 #define C_Ub_16                 (4  + NUMBER_CANALs_ADC)
 #define C_Uc_1                  (5  + NUMBER_CANALs_ADC)
 #define C_Uc_16                 (6  + NUMBER_CANALs_ADC)
-#define C_VREF_ADC2_1           (7  + NUMBER_CANALs_ADC)
-#define C_VREF_ADC2_2           (8  + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_1             (9  + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_16            (10 + NUMBER_CANALs_ADC)
-#define C_Uab_TN2_256           (11 + NUMBER_CANALs_ADC)
+#define C_Uab_TN2_1             (7  + NUMBER_CANALs_ADC)
+#define C_Uab_TN2_16            (8  + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_1           (9  + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_2           (10 + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_3           (11 + NUMBER_CANALs_ADC)
 #define C_GND_ADC2_2            (12 + NUMBER_CANALs_ADC)
 #define C_GND_ADC2_3            (13 + NUMBER_CANALs_ADC)
-#define C_VREF_ADC2_3           (14 + NUMBER_CANALs_ADC)
+#define C_VREF_ADC2_4           (14 + NUMBER_CANALs_ADC)
 #define C_VDD_ADC2              (15 + NUMBER_CANALs_ADC)
 
 #define READ_VAL_1_3U0_VAL_2_Ubc_TN2     (                            \
@@ -237,6 +237,7 @@ Koef_1 = 74.831881801009052122160116719483 (4790/64 = 74.84375)
                         (1 << C_VREF_ADC2_1)            | \
                         (1 << C_VREF_ADC2_2)            | \
                         (1 << C_VREF_ADC2_3)            | \
+                        (1 << C_VREF_ADC2_4)            | \
           (unsigned int)(1 << C_VDD_ADC2  )               \
                        )
 
@@ -250,7 +251,7 @@ Koef_1 = 74.831881801009052122160116719483 (4790/64 = 74.84375)
 #define NUMBER_GND_ADC1         5
 #define NUMBER_GND_ADC2         3
 
-#define NUMBER_VREF_ADC2        3
+#define NUMBER_VREF_ADC2        4
 
 #define N_VAL_1                   0
 #define N_VAL_2                   1
