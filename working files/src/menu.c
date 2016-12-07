@@ -16613,7 +16613,7 @@ void main_manu_function(void)
                   }
 
                   if (count_number_set_bit(
-                                           (point + 3*index_of_dt),
+                                           (point + N_BIG*index_of_dt),
                                            NUMBER_TOTAL_SIGNAL_FOR_RANG_OUTPUT_LED_DF_REG
                                           ) <= MAX_FUNCTIONS_IN_DT)
                   {
