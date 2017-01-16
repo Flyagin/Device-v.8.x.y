@@ -9241,29 +9241,30 @@ inline void main_protection(void)
      )   
   {
     _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_DEFECT);
+    /**************************/
+    //Сигнал "Несправность Аварийная"
+    /**************************/
+    if (
+        ((diagnostyka_tmp[0] & MASKA_AVAR_ERROR_0) != 0) ||
+        ((diagnostyka_tmp[1] & MASKA_AVAR_ERROR_1) != 0) ||
+        ((diagnostyka_tmp[2] & MASKA_AVAR_ERROR_2) != 0)
+      )   
+    {
+      _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_AVAR_DEFECT);
+    }
+    else
+    {     
+      _CLEAR_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_AVAR_DEFECT);
+    }
+    /**************************/
   }
   else
   {
     _CLEAR_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_DEFECT);
-  }
-  /**************************/
-
-  /**************************/
-  //Сигнал "Несправность Аварийная"
-  /**************************/
-  if (
-      ((diagnostyka[0] & MASKA_AVAR_ERROR_0) != 0) ||
-      ((diagnostyka[1] & MASKA_AVAR_ERROR_1) != 0) ||
-      ((diagnostyka[2] & MASKA_AVAR_ERROR_2) != 0)
-     )   
-  {
-    _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_AVAR_DEFECT);
-  }
-  else
-  {
     _CLEAR_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_AVAR_DEFECT);
   }
   /**************************/
+
   
   //Логічні схеми мають працювати тільки у тому випадку, якщо немє сигналу "Аварийная неисправность"
   if (_CHECK_SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_AVAR_DEFECT) == 0)
