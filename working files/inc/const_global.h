@@ -1,6 +1,8 @@
 #ifndef __CONST_GLOBAL__
 #define __CONST_GLOBAL__
 
+#define BA1_VER2
+
 #define N_BIG   6
 #define N_SMALL 2
 
