@@ -3085,7 +3085,7 @@ inline void zz_handler(unsigned int *activated_functions, unsigned int number_gr
   if((current_settings_prt.control_zz & CTR_ZZ1_TYPE) == 0)
   {
     max_3i0_current = measurement[IM_3I0];
-    koef_povernennja = KOEF_POVERNENNJA_GENERAL;
+    koef_povernennja = KOEF_POVERNENNJA_GENERAL_UP;
   }
   else
   {
@@ -3446,7 +3446,7 @@ inline void zop_handler(unsigned int *activated_functions, unsigned int number_g
     else
     {
       //Працюємо по утавці відпускання
-      setpoint = current_settings_prt.setpoint_zop[number_group_stp]*KOEF_POVERNENNJA_GENERAL/100;
+      setpoint = current_settings_prt.setpoint_zop[number_group_stp]*KOEF_POVERNENNJA_GENERAL_UP/100;
     }
     
     //Виставляємо, або скидаємо сигнал "ПО КОФ"
@@ -3548,11 +3548,11 @@ void umin1_handler(unsigned int *activated_functions, unsigned int number_group_
   _Bool Uab_or_Ubc_or_Uca_is_smaller_than_250mV = (measurement[IM_UAB] <= setpoint2) || (measurement[IM_UBC] <= setpoint2) || (measurement[IM_UCA] <= setpoint2);
   
   unsigned int setpoint3 = previous_state_po_iblk_umin1 ?
-          current_settings_prt.setpoint_Umin1_Iblk[number_group_stp] * KOEF_POVERNENNJA_GENERAL / 100 :
+          current_settings_prt.setpoint_Umin1_Iblk[number_group_stp] * KOEF_POVERNENNJA_GENERAL_DOWN / 100 :
           current_settings_prt.setpoint_Umin1_Iblk[number_group_stp];
   
-  _Bool Ia_or_Ic_is_larger_than_Iust = (measurement[IM_IA] >= setpoint3) ||
-                                       (measurement[IM_IC] >= setpoint3);
+  _Bool Ia_and_Ic_is_smaller_than_Iust = (measurement[IM_IA] <= setpoint3) &&
+                                       (measurement[IM_IC] <= setpoint3);
   //М
   unsigned int tmp_value = ((current_settings_prt.control_extra_settings_1 & CTR_EXTRA_SETTINGS_1_CTRL_PHASE_LINE) == 0)         << 0;
 //  tmp_value |= ((current_settings_prt.control_Umin & CTR_EXTRA_SETTINGS_1_CTRL_PHASE_LINE) != 0)                                 << 1;
@@ -3575,7 +3575,7 @@ void umin1_handler(unsigned int *activated_functions, unsigned int number_group_
     _OR3(Ua_is_smaller_than_Umin1, 0, Ub_is_smaller_than_Umin1, 0, Uc_is_smaller_than_Umin1, 0, tmp_value, 10);
     _INVERTOR(tmp_value, 3, tmp_value, 3);
     _AND2(tmp_value, 10, tmp_value, 3, tmp_value, 11);
-    _AND2(tmp_value, 5, Ia_or_Ic_is_larger_than_Iust, 0, tmp_value, 12);
+    _AND2(tmp_value, 5, Ia_and_Ic_is_smaller_than_Iust, 0, tmp_value, 12);
     _INVERTOR(tmp_value, 5, tmp_value, 5);
     _AND3(Ua_or_Ub_or_Uc_is_smaller_than_250mV, 0, tmp_value, 4, tmp_value, 5, tmp_value, 13);
     
@@ -3590,7 +3590,7 @@ void umin1_handler(unsigned int *activated_functions, unsigned int number_group_
     _OR3(Uab_is_smaller_than_Umin1, 0, Ubc_is_smaller_than_Umin1, 0, Uca_is_smaller_than_Umin1, 0, tmp_value, 10);
     _INVERTOR(tmp_value, 3, tmp_value, 3);
     _AND2(tmp_value, 10, tmp_value, 3, tmp_value, 11);
-    _AND2(tmp_value, 5, Ia_or_Ic_is_larger_than_Iust, 0, tmp_value, 12);
+    _AND2(tmp_value, 5, Ia_and_Ic_is_smaller_than_Iust, 0, tmp_value, 12);
     _INVERTOR(tmp_value, 5, tmp_value, 5);
     _AND3(Uab_or_Ubc_or_Uca_is_smaller_than_250mV, 0, tmp_value, 4, tmp_value, 5, tmp_value, 13);
     
@@ -3606,7 +3606,7 @@ void umin1_handler(unsigned int *activated_functions, unsigned int number_group_
   _AND5(tmp_value, 6, tmp_value, 2, tmp_value, 14, tmp_value, 13, tmp_value, 12, tmp_value, 15);
   
   //ПО Iблк. Umin1
-  if (Ia_or_Ic_is_larger_than_Iust) {
+  if (Ia_and_Ic_is_smaller_than_Iust) {
     _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_PO_IBLK_UMIN1);
   }
   
@@ -3652,11 +3652,11 @@ void umin2_handler(unsigned int *activated_functions, unsigned int number_group_
   _Bool Uab_or_Ubc_or_Uca_is_smaller_than_250mV = (measurement[IM_UAB] <= setpoint2) || (measurement[IM_UBC] <= setpoint2) || (measurement[IM_UCA] <= setpoint2);
   
   unsigned int setpoint3 = previous_state_po_iblk_umin2 ?
-          current_settings_prt.setpoint_Umin2_Iblk[number_group_stp] * KOEF_POVERNENNJA_GENERAL / 100 :
+          current_settings_prt.setpoint_Umin2_Iblk[number_group_stp] * KOEF_POVERNENNJA_GENERAL_DOWN / 100 :
           current_settings_prt.setpoint_Umin2_Iblk[number_group_stp];
   
-  _Bool Ia_or_Ic_is_larger_than_Iust = (measurement[IM_IA] >= setpoint3) ||
-                                       (measurement[IM_IC] >= setpoint3);
+  _Bool Ia_and_Ic_is_smaller_than_Iust = (measurement[IM_IA] <= setpoint3) &&
+                                       (measurement[IM_IC] <= setpoint3);
   //М
   unsigned int tmp_value = ((current_settings_prt.control_extra_settings_1 & CTR_EXTRA_SETTINGS_1_CTRL_PHASE_LINE) == 0)         << 0;
 //  tmp_value |= ((current_settings_prt.control_Umin & CTR_EXTRA_SETTINGS_1_CTRL_PHASE_LINE) != 0)                                 << 1;
@@ -3679,7 +3679,7 @@ void umin2_handler(unsigned int *activated_functions, unsigned int number_group_
     _OR3(Ua_is_smaller_than_Umin2, 0, Ub_is_smaller_than_Umin2, 0, Uc_is_smaller_than_Umin2, 0, tmp_value, 10);
     _INVERTOR(tmp_value, 3, tmp_value, 3);
     _AND2(tmp_value, 10, tmp_value, 3, tmp_value, 11);
-    _AND2(tmp_value, 5, Ia_or_Ic_is_larger_than_Iust, 0, tmp_value, 12);
+    _AND2(tmp_value, 5, Ia_and_Ic_is_smaller_than_Iust, 0, tmp_value, 12);
     _INVERTOR(tmp_value, 5, tmp_value, 5);
     _AND3(Ua_or_Ub_or_Uc_is_smaller_than_250mV, 0, tmp_value, 4, tmp_value, 5, tmp_value, 13);
     
@@ -3694,7 +3694,7 @@ void umin2_handler(unsigned int *activated_functions, unsigned int number_group_
     _OR3(Uab_is_smaller_than_Umin2, 0, Ubc_is_smaller_than_Umin2, 0, Uca_is_smaller_than_Umin2, 0, tmp_value, 10);
     _INVERTOR(tmp_value, 3, tmp_value, 3);
     _AND2(tmp_value, 10, tmp_value, 3, tmp_value, 11);
-    _AND2(tmp_value, 5, Ia_or_Ic_is_larger_than_Iust, 0, tmp_value, 12);
+    _AND2(tmp_value, 5, Ia_and_Ic_is_smaller_than_Iust, 0, tmp_value, 12);
     _INVERTOR(tmp_value, 5, tmp_value, 5);
     _AND3(Uab_or_Ubc_or_Uca_is_smaller_than_250mV, 0, tmp_value, 4, tmp_value, 5, tmp_value, 13);
     
@@ -3710,7 +3710,7 @@ void umin2_handler(unsigned int *activated_functions, unsigned int number_group_
   _AND5(tmp_value, 6, tmp_value, 2, tmp_value, 14, tmp_value, 13, tmp_value, 12, tmp_value, 15);
   
   //ПО Iблк. Umin2
-  if (Ia_or_Ic_is_larger_than_Iust) {
+  if (Ia_and_Ic_is_smaller_than_Iust) {
     _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_PO_IBLK_UMIN2);
   }
   
@@ -4657,7 +4657,7 @@ inline void urov_handler(unsigned int *activated_functions, unsigned int number_
     else
     {
       //Працюємо по утавці відпускання
-      setpoint = current_settings_prt.setpoint_urov[number_group_stp]*KOEF_POVERNENNJA_GENERAL/100;
+      setpoint = current_settings_prt.setpoint_urov[number_group_stp]*KOEF_POVERNENNJA_GENERAL_UP/100;
     }
     
     //Виставляємо, або скидаємо сигнал "ПО УРОВ"
