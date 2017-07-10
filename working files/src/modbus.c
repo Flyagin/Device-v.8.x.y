@@ -2799,7 +2799,9 @@ unsigned int save_new_rang_oldr_from_gmm(unsigned int number, unsigned int numbe
              (data == BIT_MA_PO_UAVR_MAX2           ) || 
              (data == BIT_MA_BLOCK_AVR_VID_ZAKHYSTIV) || 
              (data == BIT_MA_BLOCK_KRATN_AVR        ) || 
-             (data == BIT_MA_PUSK_AVR               )
+             (data == BIT_MA_PUSK_AVR               ) ||
+             (data == BIT_MA_PUSK_AVR_1             ) ||
+             (data == BIT_MA_PUSK_AVR_2             )
             )
     {
       //Зараз є намагання зранжувати функцю АВР і номер її є допустимим
