@@ -9859,6 +9859,7 @@ inline void main_protection(void)
   unsigned int temp_state_outputs_2 = (temp_state_outputs >> NUMBER_OUTPUTS_1) & ((1 << NUMBER_OUTPUTS_2) - 1);
   _DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_1) = temp_state_outputs_1;
   _DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_2) = temp_state_outputs_2;
+  TIM_PRT_write_tick = TIM2->CNT;
   /**************************/
 
   /**************************/
@@ -10055,33 +10056,42 @@ void TIM2_IRQHandler(void)
     //Опрцювання функцій захистів
     /***********************************************************/
     //Діагностика вузлів, яку треба проводити кожен раз перед початком опрацьовуванням логіки пристрою
-    unsigned int control_state_outputs_1 = (( (~((unsigned int)(_DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_1)))) >> 8) & ((1 << NUMBER_OUTPUTS_1) - 1));
-    unsigned int control_state_outputs_2 = (( (~((unsigned int)(_DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_2)))) >> 8) & ((1 << NUMBER_OUTPUTS_2) - 1));
-    unsigned int control_state_outputs = control_state_outputs_1 | (control_state_outputs_2 << NUMBER_OUTPUTS_1);
-    //Формуємо стани виходів у відповідності до зміненої нумерації
-    unsigned int temp_state_outputs = 0;
-    for (unsigned int index = 0; index < NUMBER_OUTPUTS; index++)
+    uint32_t TIM_PRT_read_tick = TIM2->CNT;
+
+    uint64_t TIM_PRT_delta_write_read;
+    if (TIM_PRT_read_tick < TIM_PRT_write_tick)
+      TIM_PRT_delta_write_read = TIM_PRT_read_tick + 0x100000000 - TIM_PRT_write_tick;
+    else TIM_PRT_delta_write_read = TIM_PRT_read_tick - TIM_PRT_write_tick;
+    if (TIM_PRT_delta_write_read > (TIM2_MIN_PERIOD_WRITE_READ + 1))
     {
-      if ((state_outputs & (1 << index)) != 0) 
-      {
-        if (index < NUMBER_OUTPUTS_1)
-          temp_state_outputs |= 1 << (NUMBER_OUTPUTS_1 - index - 1);
-        else
-          temp_state_outputs |= 1 << index;
-      }
-    }
-    if (control_state_outputs != temp_state_outputs) 
-    {
-//      _SET_BIT(set_diagnostyka, ERROR_DIGITAL_OUTPUTS_BIT);
+      unsigned int control_state_outputs_1 = (( (~((unsigned int)(_DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_1)))) >> 8) & ((1 << NUMBER_OUTPUTS_1) - 1));
+      unsigned int control_state_outputs_2 = (( (~((unsigned int)(_DEVICE_REGISTER(Bank1_SRAM2_ADDR, OFFSET_OUTPUTS_2)))) >> 8) & ((1 << NUMBER_OUTPUTS_2) - 1));
+      unsigned int control_state_outputs = control_state_outputs_1 | (control_state_outputs_2 << NUMBER_OUTPUTS_1);
+      //Формуємо стани виходів у відповідності до зміненої нумерації
+      unsigned int temp_state_outputs = 0;
       for (unsigned int index = 0; index < NUMBER_OUTPUTS; index++)
       {
-        uint32_t maska;
-        if (index < NUMBER_OUTPUTS_1)
-          maska = 1 << (NUMBER_OUTPUTS_1 - index - 1);
-        else
-          maska = 1 << index;
+        if ((state_outputs & (1 << index)) != 0) 
+        {
+          if (index < NUMBER_OUTPUTS_1)
+            temp_state_outputs |= 1 << (NUMBER_OUTPUTS_1 - index - 1);
+          else
+            temp_state_outputs |= 1 << index;
+        }
+      }
+      if (control_state_outputs != temp_state_outputs) 
+      {
+//        _SET_BIT(set_diagnostyka, ERROR_DIGITAL_OUTPUTS_BIT);
+        for (unsigned int index = 0; index < NUMBER_OUTPUTS; index++)
+        {
+          uint32_t maska;
+          if (index < NUMBER_OUTPUTS_1)
+            maska = 1 << (NUMBER_OUTPUTS_1 - index - 1);
+          else
+            maska = 1 << index;
         
-        if ((control_state_outputs & maska) != (temp_state_outputs & maska)) _SET_BIT(set_diagnostyka, (ERROR_DIGITAL_OUTPUT_1_BIT + index));
+          if ((control_state_outputs & maska) != (temp_state_outputs & maska)) _SET_BIT(set_diagnostyka, (ERROR_DIGITAL_OUTPUT_1_BIT + index));
+        }
       }
     }
     

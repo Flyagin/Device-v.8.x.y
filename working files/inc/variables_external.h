@@ -178,6 +178,8 @@ extern unsigned int Nzz_3U0_bilshe_porogu, Nzz_3I0_bilshe_porogu;
 
 extern unsigned int i1_bilshe_porogu, i2_bilshe_porogu;
 
+extern uint32_t TIM_PRT_write_tick;
+
 extern volatile unsigned int state_inputs;
 extern volatile unsigned int active_inputs;
 extern volatile unsigned int state_outputs;

@@ -315,9 +315,9 @@ void DMA_StreamI2C_Rx_IRQHandler(void)
 /*****************************************************/
 void TIM5_IRQHandler(void)
 {
-#ifdef SYSTEM_VIEWER_ENABLE
-  SEGGER_SYSVIEW_RecordEnterISR();
-#endif
+//#ifdef SYSTEM_VIEWER_ENABLE
+//  SEGGER_SYSVIEW_RecordEnterISR();
+//#endif
   
   if (TIM_GetITStatus(TIM5, TIM_IT_CC1) != RESET)
   {
@@ -593,9 +593,9 @@ void TIM5_IRQHandler(void)
     control_reading_ADCs(canal_3U0_Ubc_TN2);
   }
   
-#ifdef SYSTEM_VIEWER_ENABLE
-  SEGGER_SYSVIEW_RecordExitISR();
-#endif
+//#ifdef SYSTEM_VIEWER_ENABLE
+//  SEGGER_SYSVIEW_RecordExitISR();
+//#endif
 }
 /*****************************************************/
 
