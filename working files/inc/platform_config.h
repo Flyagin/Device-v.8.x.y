@@ -195,7 +195,9 @@
 #define GPIO_SPI_DF_TOGGLE          GPIOG
 #define RCC_AHB1Periph_GPIO_SPI_DF_TOGGLE  RCC_AHB1Periph_GPIOG
 #define GPIO_SPI_DF_TOGGLE_Pin      GPIO_Pin_13
-
+#define GPIO_SPI_EDF_A1              GPIOG
+#define RCC_AHB1Periph_GPIO_SPI_EDF_A1  RCC_AHB1Periph_GPIOG
+#define GPIO_SPI_EDF_A1_Pin          GPIO_Pin_14
 
 #define SPI_DF                      SPI1
 #define RCC_APB2Periph_SPI_DF       RCC_APB2Periph_SPI1

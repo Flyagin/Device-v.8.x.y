@@ -4136,7 +4136,7 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
       }
     case MA_ZBIRKA_SW:
       {
-        temp_value = ZBIRKA_VERSII_PZ;
+        temp_value = (ZBIRKA_VERSII_PZ << 8) + ZBIRKA_PIDVERSII_PZ;
         break;
       }
     default:

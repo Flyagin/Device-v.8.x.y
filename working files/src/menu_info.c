@@ -71,6 +71,15 @@ void make_ekran_info()
 #else
           value_str[index_tmp++] = ZBIRKA_VERSII_PZ + 0x30;
 #endif
+
+          value_str[index_tmp++] = '.';
+          
+#if ZBIRKA_PIDVERSII_PZ > 9
+          value_str[index_tmp++] = (ZBIRKA_PIDVERSII_PZ / 10) + 0x30;
+          value_str[index_tmp++] = (ZBIRKA_PIDVERSII_PZ % 10) + 0x30;
+#else
+          value_str[index_tmp++] = ZBIRKA_PIDVERSII_PZ + 0x30;
+#endif
           unsigned int shift = (MAX_COL_LCD - index_tmp) >> 1;
           first_char_row1 = shift;
           last_chat_row1 = first_char_row1 + index_tmp;
