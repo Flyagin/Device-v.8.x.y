@@ -6735,7 +6735,7 @@ inline void start_monitoring_min_f2(unsigned int time_tmp)
 /*****************************************************/
 inline void continue_monitoring_min_f2(unsigned int time_tmp)
 {
-  if (((int)measurements_f2_min_achr_dr[15]) != (-2)) /*Не зафіксовано, що частота була нижче порогу визначеного константою MIN_FREQUENCY - інакше далі моніторити мінімальну частоту немає сенсу*/
+  if (((int)measurements_f2_min_achr_dr[16]) != (-2)) /*Не зафіксовано, що частота була нижче порогу визначеного константою MIN_FREQUENCY - інакше далі моніторити мінімальну частоту немає сенсу*/
   {
     //Перевірка, чи не є зарза досліджувана частота менша, ніж та що помічена мінімальною
     int frequency_val_1_int = (int)frequency_val_1;
@@ -6748,7 +6748,7 @@ inline void continue_monitoring_min_f2(unsigned int time_tmp)
        (frequency_val_2_int != (-1)) && /*Частота не визначена*/
        (frequency_val_2_int != (-3)) &&  /*Частота вище порогу визначеного константою MAX_FREQUENCY*/
        (
-        (((int)measurements_f2_min_achr_dr[15]) > frequency_val_2_int) ||
+        (((int)measurements_f2_min_achr_dr[16]) > frequency_val_2_int) ||
         (frequency_val_2_int == (-2)) /*Частота нижче порогу визначеного константою MIN_FREQUENCY - цю перевірку робимо, бо у попередній момент часу могло крім значення частоти бути ще числа -1 або -3*/
        )   
       )   
