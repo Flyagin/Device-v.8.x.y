@@ -95,8 +95,12 @@ void convert_order_list_function_to_gmm(unsigned int* input_array, unsigned shor
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_SECTOR_NAZAD_MTZN4 , (BIT_MA_SECTOR_NAZAD_MTZN4  - BIT_MA_CURRENT_AF_BASE));
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PO_U_MTZPN4        , (BIT_MA_PO_U_MTZPN4         - BIT_MA_CURRENT_AF_BASE));
 
-  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PO_BLOCK_U_MTZN   , (BIT_MA_PO_BLOCK_U_MTZN      - BIT_MA_CURRENT_AF_BASE));
+  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PO_BLOCK_U_MTZN    , (BIT_MA_PO_BLOCK_U_MTZN      - BIT_MA_CURRENT_AF_BASE));
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_NCN_MTZ            , (BIT_MA_NCN_MTZ             - BIT_MA_CURRENT_AF_BASE));
+
+  //ÇÄÇ
+  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_PUSK_ZDZ_VID_DV    , (BIT_MA_PUSK_ZDZ_VID_DV     - BIT_MA_CURRENT_AF_BASE));
+  _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_ZDZ                , (BIT_MA_ZDZ                 - BIT_MA_CURRENT_AF_BASE));
 
   //ÇÇ
   _CONVERT_SIGNAL_TO_GMM(input_array, output_array, RANG_OUTPUT_LED_DF_REG_BLOCK_NZZ , (BIT_MA_BLOCK_NZZ  - BIT_MA_CURRENT_AF_BASE));
