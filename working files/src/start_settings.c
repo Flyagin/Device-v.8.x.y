@@ -873,8 +873,8 @@ void start_settings_peripherals(void)
   /* Конфігурація піну LCD-BL, як Output push-pull */
   GPIO_InitStructure.GPIO_Pin = LCD_BL_PIN;
   GPIO_Init(LCD_BL, &GPIO_InitStructure);
-  /* Виставляємоо пін LCD-BL для того, щоб включити підсвітку LCD*/
-  GPIO_SetBits(LCD_BL, LCD_BL_PIN);
+  /* Знімаємо пін LCD-BL для того, щоб вимкнути підсвітку LCD*/
+  GPIO_ResetBits(LCD_BL, LCD_BL_PIN);
 
   /* Конфігурація піну LCD-R/W, як Output push-pull */
   GPIO_InitStructure.GPIO_Pin = LCD_RW_PIN;
@@ -1769,6 +1769,11 @@ void min_settings(__SETTINGS *target_label)
   target_label->configuration = 0;
   
   target_label->grupa_ustavok = SETPOINT_GRUPA_USTAVOK_MIN;
+  
+  target_label->type_mtz1 = TYPE_MTZ_SIMPLE;
+  target_label->type_mtz2 = TYPE_MTZ_SIMPLE;
+  target_label->type_mtz3 = TYPE_MTZ_SIMPLE;
+  target_label->type_mtz4 = TYPE_MTZ_SIMPLE;
   
   for (unsigned int i = 0; i < NUMBER_GROUP_USTAVOK; i++)
   {
