@@ -4070,47 +4070,83 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
       }
     case MA_NAME_CHAR_1_2:
       {
+#ifndef KZ
         temp_value = ('K' << 8) + 'i';
+#else
+        temp_value = ('A' << 8) + 'k';
+#endif
         break;
       }
     case MA_NAME_CHAR_3_4:
       {
+#ifndef KZ
         temp_value = ('e' << 8) + 'v';
+#else
+        temp_value = ('t' << 8) + 'o';
+#endif
         break;
       }
     case MA_NAME_CHAR_5_6:
       {
+#ifndef KZ
         temp_value = ('p' << 8) + 'r';
+#else
+        temp_value = ('b' << 8) + 'e';
+#endif
         break;
       }
     case MA_NAME_CHAR_7_8:
       {
+#ifndef KZ
         temp_value = ('i' << 8) + 'b';
+#else
+        temp_value = ('P' << 8) + 'r';
+#endif
         break;
       }
     case MA_NAME_CHAR_9_10:
       {
+#ifndef KZ
         temp_value = ('o' << 8) + 'r';
+#else
+        temp_value = ('i' << 8) + 'l';
+#endif
         break;
       }
     case MA_NAME_CHAR_11_12:
       {
+#ifndef KZ
         temp_value = ('M' << 8) + 'R';
+#else
+        temp_value = ('M' << 8) + 'Z';
+#endif
         break;
       }
     case MA_NAME_CHAR_13_14:
       {
+#ifndef KZ
         temp_value = ('Z' << 8) + 'S';
+#else
+        temp_value = ('D' << 8) + ' ';
+#endif
         break;
       }
     case MA_NAME_CHAR_15_16:
       {
+#ifndef KZ
         temp_value = ('0' << 8) + '5';
+#else
+        temp_value = (' ' << 8) + ' ';
+#endif
         break;
       }
     case MA_NAME_CHAR_17_18:
       {
+#ifndef KZ
         temp_value = ('L' << 8) + '_';
+#else
+        temp_value = (' ' << 8) + ' ';
+#endif
         break;
       }
     case MA_VERSION_SW:
