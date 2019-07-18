@@ -81,13 +81,46 @@ inline void watchdog_routine(void)
 *************************************************************************/
 inline void periodical_operations(void)
 {
+#ifndef I2C_EEPROM
+  //Обмін через SPI_1
+  {
+    unsigned int no_yes = false;
+    for (size_t i = 0; i < N_SPI; i++)
+    {
+      if (control_eeprom_taskes[i] != 0)
+      {
+        no_yes = true;
+        break;
+      }
+    }
+    if ((no_yes) || (state_execution_spi1 > 0))
+    {
+      mutex_spi1 = true;
+      if (driver_spi_df[number_chip_dataflsh_exchange].state_execution == TRANSACTION_EXECUTING_NONE)
+      {
+        main_routines_for_spi1();
+      }
+      mutex_spi1 = false;
+    }
+  }
+#endif
+
   //Обміну через I2C
-  if (
-      (control_i2c_taskes[0]     != 0) || 
-      (control_i2c_taskes[1]     != 0) || 
-      (driver_i2c.state_execution > 0)
-     )
-    main_routines_for_i2c();
+  {
+    unsigned int no_yes = false;
+    for (size_t i = 0; i < N_I2C; i++)
+    {
+      if (control_i2c_taskes[i] != 0)
+      {
+        no_yes = true;
+        break;
+      }
+    }
+    if ((no_yes) || (driver_i2c.state_execution > 0))
+    {
+      main_routines_for_i2c();
+    }
+  }
 
   //Обробка дій системи меню
   main_manu_function();
@@ -191,14 +224,14 @@ inline void periodical_operations(void)
   else if (periodical_tasks_TEST_SETTINGS != 0)
   {
     //Стоїть у черзі активна задача самоконтролю таблиці настройок
-    if ((state_i2c_task & STATE_SETTINGS_EEPROM_GOOD) != 0)
+    if ((state_eeprom_task & STATE_SETTINGS_EEPROM_GOOD) != 0)
     {
       //Перевірку здійснюємо тільки тоді, коли таблиця настройок була успішно прочитана
       if (
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_SETTINGS_EEPROM_BIT) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_SETTINGS_EEPROM_BIT    ) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_SETTINGS_EEPROM_BIT ) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_SETTINGS_EEPROM_BIT    ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_SETTINGS_EEPROM_BIT) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_SETTINGS_EEPROM_BIT    ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_SETTINGS_EEPROM_BIT ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_SETTINGS_EEPROM_BIT    ) == 0) &&
           (changed_settings == CHANGED_ETAP_NONE)  
          ) 
       {
@@ -218,14 +251,14 @@ inline void periodical_operations(void)
   else if (periodical_tasks_TEST_USTUVANNJA != 0)
   {
     //Стоїть у черзі активна задача самоконтролю юстування (і щоб не ускладнювати задачу і серійного номеру пристрою)
-    if ((state_i2c_task & STATE_USTUVANNJA_EEPROM_GOOD) != 0)
+    if ((state_eeprom_task & STATE_USTUVANNJA_EEPROM_GOOD) != 0)
     {
       //Перевірку здійснюємо тільки тоді, коли юстування було успішно прочитане
       if (
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_USTUVANNJA_EEPROM_BIT    ) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_USTUVANNJA_EEPROM_BIT ) == 0) &&
-          (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_USTUVANNJA_EEPROM_BIT    ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_USTUVANNJA_EEPROM_BIT    ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_USTUVANNJA_EEPROM_BIT ) == 0) &&
+          (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_USTUVANNJA_EEPROM_BIT    ) == 0) &&
           (changed_ustuvannja == CHANGED_ETAP_NONE)  
          ) 
       {
@@ -419,8 +452,8 @@ int main(void)
   start_settings_peripherals();
   
   if(
-     ((state_i2c_task & STATE_SETTINGS_EEPROM_GOOD) != 0) &&
-     ((state_i2c_task & STATE_TRG_FUNC_EEPROM_GOOD) != 0)
+     ((state_eeprom_task & STATE_SETTINGS_EEPROM_GOOD) != 0) &&
+     ((state_eeprom_task & STATE_TRG_FUNC_EEPROM_GOOD) != 0)
     )   
   {
     //Випадок, якщо настройки успішно зчитані
@@ -444,8 +477,8 @@ int main(void)
   
     //Якщо настройки не зчитані успішно з EEPROM, то спочатку виводимо на екран повідомлення про це
     while (
-           ((state_i2c_task & STATE_SETTINGS_EEPROM_GOOD) == 0) ||
-           ((state_i2c_task & STATE_TRG_FUNC_EEPROM_GOOD) == 0)
+           ((state_eeprom_task & STATE_SETTINGS_EEPROM_GOOD) == 0) ||
+           ((state_eeprom_task & STATE_TRG_FUNC_EEPROM_GOOD) == 0)
           )   
     {
       error_reading_with_eeprom();
@@ -468,39 +501,63 @@ int main(void)
     "читання з"/"запису в" EEPROM цієї інформації. Тому виставлення спочатку команди
     запису заблокує копіювання.
     З другої сторони не можливо, щоб почався запис до модифікації, 
-    бо запис ініціюється функцією main_routines_for_i2c - яка виконується на одному і тому ж
+    бо запис ініціюється функцією main_routines_for_spi1 - яка виконується на одному і тому ж
     рівні пріоритетності, що і функція main.
-    Тобто спочатку треба дійти до виклику функції main_routines_for_i2c, і аж тоді можливе
+    Тобто спочатку треба дійти до виклику функції main_routines_for_spi1, і аж тоді можливе
     виконання команди, яку ми виставили перед зміною даних, яку 
-    ми зараз гарантовано зробимо (до виклику функції main_routines_for_i2c)
+    ми зараз гарантовано зробимо (до виклику функції main_routines_for_spi1)
     */
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
     
     info_rejestrator_ar.next_address = MIN_ADDRESS_AR_AREA;
     info_rejestrator_ar.saving_execution = 0;
     info_rejestrator_ar.number_records = 0;
-    while(
-          (control_i2c_taskes[0]     != 0) ||
-          (control_i2c_taskes[1]     != 0) ||
-          (driver_i2c.state_execution > 0)
-         )
-    {
-      //Робота з watchdogs
-      if ((control_word_of_watchdog & WATCHDOG_KYYBOARD) == WATCHDOG_KYYBOARD)
-      {
-        //Змінюємо стан біту зовнішнього Watchdog на протилежний
-        GPIO_WriteBit(
-                      GPIO_EXTERNAL_WATCHDOG,
-                      GPIO_PIN_EXTERNAL_WATCHDOG,
-                      (BitAction)(1 - GPIO_ReadOutputDataBit(GPIO_EXTERNAL_WATCHDOG, GPIO_PIN_EXTERNAL_WATCHDOG))
-                     );
-      }
 
-      main_routines_for_i2c();
-      if (_CHECK_SET_BIT(control_i2c_taskes, TASK_BLK_OPERATION_BIT) != 0)
+    {
+      unsigned int no_yes = false;
+#ifndef I2C_EEPROM
+      for (size_t i = 0; i < N_SPI; i++)
+#else
+      for (size_t i = 0; i < N_I2C; i++)
+#endif
       {
-        //Повне роозблоковування обміну з мікросхемами для драйверу I2C
-        _CLEAR_BIT(control_i2c_taskes, TASK_BLK_OPERATION_BIT);
+        if (control_eeprom_taskes[i] != 0)
+        {
+          no_yes = true;
+          break;
+        }
+      }
+      while(
+            (no_yes) ||
+#ifndef I2C_EEPROM
+            (state_execution_spi1 > 0)
+#else
+            (driver_i2c.state_execution > 0)
+#endif
+           )
+      {
+        //Робота з watchdogs
+        if ((control_word_of_watchdog & WATCHDOG_KYYBOARD) == WATCHDOG_KYYBOARD)
+        {
+          //Змінюємо стан біту зовнішнього Watchdog на протилежний
+          GPIO_WriteBit(
+                        GPIO_EXTERNAL_WATCHDOG,
+                        GPIO_PIN_EXTERNAL_WATCHDOG,
+                        (BitAction)(1 - GPIO_ReadOutputDataBit(GPIO_EXTERNAL_WATCHDOG, GPIO_PIN_EXTERNAL_WATCHDOG))
+                       );
+          control_word_of_watchdog =  0;
+        }
+
+#ifndef I2C_EEPROM
+        main_routines_for_spi1();
+#else
+        main_routines_for_i2c();
+        if (_CHECK_SET_BIT(control_eeprom_taskes, TASK_BLK_OPERATION_BIT) != 0)
+        {
+          //Повне роозблоковування обміну з мікросхемами для драйверу I2C
+          _CLEAR_BIT(control_eeprom_taskes, TASK_BLK_OPERATION_BIT);
+        }
+#endif
       }
     }
     /*****/
@@ -540,6 +597,26 @@ int main(void)
   //Виставляємо признак, що на екрані треба обновити стартову інформацію
   new_state_keyboard |= (1<<BIT_REWRITE);
   
+#ifndef I2C_EEPROM
+  //Робота з watchdogs
+  if ((control_word_of_watchdog & WATCHDOG_KYYBOARD) == WATCHDOG_KYYBOARD)
+  {
+    //Змінюємо стан біту зовнішнього Watchdog на протилежний
+    GPIO_WriteBit(
+                  GPIO_EXTERNAL_WATCHDOG,
+                  GPIO_PIN_EXTERNAL_WATCHDOG,
+                  (BitAction)(1 - GPIO_ReadOutputDataBit(GPIO_EXTERNAL_WATCHDOG, GPIO_PIN_EXTERNAL_WATCHDOG))
+                 );
+    control_word_of_watchdog =  0;
+  }
+
+  /**********************/
+  //Конфігуруємо I2C
+  /**********************/
+  Configure_I2C(I2C);
+  /**********************/
+#endif
+  
   //Виставляємо признак, що требаа прочитати всі регістри RTC, а потім, при потребі відкоректувати його поля
   //При цьому виставляємо біт блокування негайного запуску операції, щоб засинхронізуватися з роботою вимірювальної системи
   _SET_BIT(control_i2c_taskes, TASK_START_READ_RTC_BIT);
@@ -554,6 +631,7 @@ int main(void)
                   GPIO_PIN_EXTERNAL_WATCHDOG,
                   (BitAction)(1 - GPIO_ReadOutputDataBit(GPIO_EXTERNAL_WATCHDOG, GPIO_PIN_EXTERNAL_WATCHDOG))
                  );
+    control_word_of_watchdog =  0;
   }
   restart_resurs_count = 0xff;/*Ненульове значення перезапускає лічильники*/
   

@@ -10120,6 +10120,21 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                 )
           {
             //Якщ часом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+#ifndef I2C_EEPROM
+            if (  
+                (control_eeprom_taskes[0] != 0) || 
+                (control_eeprom_taskes[1] != 0) || 
+                (state_execution_spi1 > 0)
+               )
+            {
+              mutex_spi1 = true;
+              if (driver_spi_df[number_chip_dataflsh_exchange].state_execution == TRANSACTION_EXECUTING_NONE)
+              {
+                main_routines_for_spi1();
+              }
+              mutex_spi1 = false;
+            }
+#endif
           }
           
           int *point_to_first_number_time_sample, *point_to_last_number_time_sample;
@@ -10164,6 +10179,21 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                   )   
             {
               //Якщо часом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+#ifndef I2C_EEPROM
+            if (  
+                (control_eeprom_taskes[0] != 0) || 
+                (control_eeprom_taskes[1] != 0) || 
+                (state_execution_spi1 > 0)
+               )
+            {
+              mutex_spi1 = true;
+              if (driver_spi_df[number_chip_dataflsh_exchange].state_execution == TRANSACTION_EXECUTING_NONE)
+              {
+                main_routines_for_spi1();
+              }
+              mutex_spi1 = false;
+            }
+#endif
             }
           }
               
@@ -11635,7 +11665,22 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                  ((type_interface == RS485_RECUEST) && ((control_tasks_dataflash & TASK_MAMORY_READ_DATAFLASH_FOR_AR_RS485) != 0))
                 )
           {
-            //Якщ очасом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+            //Якщо очасом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+#ifndef I2C_EEPROM
+            if (  
+                (control_eeprom_taskes[0] != 0) || 
+                (control_eeprom_taskes[1] != 0) || 
+                (state_execution_spi1 > 0)
+               )
+            {
+              mutex_spi1 = true;
+              if (driver_spi_df[number_chip_dataflsh_exchange].state_execution == TRANSACTION_EXECUTING_NONE)
+              {
+                main_routines_for_spi1();
+              }
+              mutex_spi1 = false;
+            }
+#endif
           }
 
           if (
@@ -11691,7 +11736,22 @@ inline unsigned int Get_data_file(unsigned char* input_data, unsigned char* outp
                      ((type_interface == RS485_RECUEST) && ((control_tasks_dataflash & TASK_MAMORY_READ_DATAFLASH_FOR_AR_RS485) != 0))
                     )
               {
-                //Якщ очасом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+                //Якщо очасом буде спрацьовувати Watchdog, то тут треба буде поставити функцію роботи з ним
+#ifndef I2C_EEPROM
+                if (  
+                    (control_eeprom_taskes[0] != 0) || 
+                    (control_eeprom_taskes[1] != 0) || 
+                    (state_execution_spi1 > 0)
+                   )
+                {
+                  mutex_spi1 = true;
+                  if (driver_spi_df[number_chip_dataflsh_exchange].state_execution == TRANSACTION_EXECUTING_NONE)
+                  {
+                    main_routines_for_spi1();
+                  }
+                  mutex_spi1 = false;
+                }
+#endif
               }
             }
             
@@ -12967,7 +13027,7 @@ inline void start_transmint_data_via_RS_485(unsigned int count)
 void modbus_rountines(unsigned int type_interface)
 {
  unsigned char *received_buffer, *transmited_buffer;
- int volatile *received_count;
+ int *received_count;
  int *transmited_count;
  unsigned int error = 0;
   
@@ -13945,7 +14005,7 @@ void modbus_rountines(unsigned int type_interface)
                 changed_ustuvannja = CHANGED_ETAP_ENDED;
               }
               //Запис юстуючик коефіцієнтів
-              _SET_BIT(control_i2c_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT);
+              _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT);
             }
             else if (add_data == MA_DEFAULT_SETTINGS)
             {
@@ -14802,7 +14862,7 @@ void modbus_rountines(unsigned int type_interface)
               changed_ustuvannja = CHANGED_ETAP_ENDED;
               serial_number_dev = edit_serial_number_dev;
 
-              _SET_BIT(control_i2c_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT);
+              _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_USTUVANNJA_EEPROM_BIT);
             }
             if (
                 (reinit_settings    != 0) ||

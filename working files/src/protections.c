@@ -5695,7 +5695,7 @@ inline void resurs_vymykacha_handler(unsigned int *activated_functions, unsigned
      restart_counter = 0;
 
     //Запускаємо запис у EEPROM
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT);
 
     //Помічаємо, що відбулася очистка ресурсу вимикача
     information_about_restart_counter |= ((1 << USB_RECUEST)|(1 << RS485_RECUEST));
@@ -5774,7 +5774,7 @@ inline void resurs_vymykacha_handler(unsigned int *activated_functions, unsigned
     }
 
     //Запускаємо запис у EEPROM
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT);
   }
   
   if (resurs_vymykacha <= current_settings_prt.setpoint_krytychnyj_resurs) {
@@ -6990,7 +6990,7 @@ inline void end_monitoring_min_max_measurement(unsigned int type_current, unsign
 inline void command_start_saving_record_dr_into_dataflash(void)
 {
   //У структурі по інформації стану реєстраторів виставляємо повідомлення, що почався запис і ще не закінчився
-  _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT);
+  _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT);
   info_rejestrator_dr.saving_execution = 1;
         
   //Виставляємо першу частину запису
@@ -8229,7 +8229,7 @@ void fix_undefined_error_ar(unsigned int* carrent_active_functions)
   _CLEAR_BIT(carrent_active_functions, RANG_OUTPUT_LED_DF_REG_WORK_A_REJESTRATOR);
 
   //Виставляємо команду запису структуру для аналогового реєстратора у EEPROM
-  _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+  _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
   //Відновлюємо інформаційну структуру для аналогового реєстратора
   /*
   Адресу залишаємо попередню, тобто така яка і була
@@ -8365,7 +8365,7 @@ inline void analog_registrator(unsigned int* carrent_active_functions)
             _SET_BIT(carrent_active_functions, RANG_OUTPUT_LED_DF_REG_WORK_A_REJESTRATOR);
 
             //У структурі по інформації стану реєстраторів виставляємо повідомлення, що почався запис і ще не закінчився
-            _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+            _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
             info_rejestrator_ar.saving_execution = 1;
           }
         }
@@ -8465,7 +8465,7 @@ inline void analog_registrator(unsigned int* carrent_active_functions)
             state_ar_record = STATE_AR_NO_RECORD;
 
             //Виставляємо команду запису структури аналогового реєстратора у EEPROM
-            _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+            _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
             //Визначаємо нову адресу наступного запису, нову кількість записів і знімаємо сигналізацію, що зараз іде запис
             if ((temporary_address_ar + size_one_ar_record) > (NUMBER_PAGES_INTO_DATAFLASH_2 << VAGA_SIZE_PAGE_DATAFLASH_2))
               temporary_address_ar = 0; 
@@ -8769,7 +8769,7 @@ inline void main_protection(void)
         //Активована команда з функціональної кнопки "Місцеве/Дистанційне"
         misceve_dystancijne = (misceve_dystancijne ^ 0x1) & 0x1;
         //Виставляємо повідомлення про те, що в EEPROM треба записати нові значення сигнальних виходів і тригерних світлоіндикаторів
-        _SET_BIT(control_i2c_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT);
+        _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT);
       }
       
       //Включення-виключення вимикача
@@ -9680,7 +9680,7 @@ inline void main_protection(void)
     Сигнали, значення яких записується у енергонезалежну пам'1ять змінилися.
     Подаємо команду на їх запис у енергонезалежну пам'ять
     */
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT);
   }
   /**************************/
 
@@ -9856,7 +9856,7 @@ inline void main_protection(void)
   {
     state_signal_outputs = state_outputs  & current_settings_prt.type_of_output;
     //Виставляємо повідомлення про те, що в EEPROM треба записати нові значення сигнальних виходів і тригерних світлоіндикаторів
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_STATE_LEDS_OUTPUTS_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_STATE_LEDS_OUTPUTS_EEPROM_BIT);
   }
   
   //Виводимо інформацію по виходах на піни процесора (у зворотньому порядку)
@@ -9931,7 +9931,7 @@ inline void main_protection(void)
   {
     state_trigger_leds = state_leds  & current_settings_prt.type_of_led;
     //Виставляємо повідомлення про те, що в EEPROM треба записати нові значення сигнальних виходів і тригерних світлоіндикаторів
-    _SET_BIT(control_i2c_taskes, TASK_START_WRITE_STATE_LEDS_OUTPUTS_EEPROM_BIT);
+    _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_STATE_LEDS_OUTPUTS_EEPROM_BIT);
   }
 
   //Виводимо інформацію по світлоіндикаторах на світлодіоди
@@ -10011,7 +10011,7 @@ void TIM2_IRQHandler(void)
       //Виставлено каманда очистити аналогового реєстратора
 
       //Виставляємо команду запису цієї структури у EEPROM
-      _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
+      _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
     
       //Очищаємо структуру інформації по дискретному реєстраторі
       info_rejestrator_ar.next_address = MIN_ADDRESS_AR_AREA;
@@ -10045,7 +10045,7 @@ void TIM2_IRQHandler(void)
       //Виставлено каманда очистити дискретного реєстратор
 
       //Виставляємо команду запису цієї структури у EEPROM
-      _SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT);
+      _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT);
 
       //Очищаємо структуру інформації по дискретному реєстраторі
       info_rejestrator_dr.next_address = MIN_ADDRESS_DR_AREA;
@@ -10151,14 +10151,14 @@ void TIM2_IRQHandler(void)
     if (periodical_tasks_TEST_TRG_FUNC != 0)
     {
       //Стоїть у черзі активна задача зроботи резервні копії даних
-      if ((state_i2c_task & STATE_TRG_FUNC_EEPROM_GOOD) != 0)
+      if ((state_eeprom_task & STATE_TRG_FUNC_EEPROM_GOOD) != 0)
       {
         //Робимо копію тільки тоді, коли триґерна інформація успішно зчитана і сформована контрольна сума
         if (
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_TRG_FUNC_EEPROM_BIT    ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_TRG_FUNC_EEPROM_BIT ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_TRG_FUNC_EEPROM_BIT    ) == 0)
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_TRG_FUNC_EEPROM_BIT) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_TRG_FUNC_EEPROM_BIT    ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_TRG_FUNC_EEPROM_BIT ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_TRG_FUNC_EEPROM_BIT    ) == 0)
            ) 
         {
           //На даний моммент не іде читання-запис триґерної інформації, тому можна здійснити копіювання
@@ -10183,14 +10183,14 @@ void TIM2_IRQHandler(void)
     if (periodical_tasks_TEST_INFO_REJESTRATOR_AR != 0)
     {
       //Стоїть у черзі активна задача зроботи резервні копії даних
-      if ((state_i2c_task & STATE_INFO_REJESTRATOR_AR_EEPROM_GOOD) != 0)
+      if ((state_eeprom_task & STATE_INFO_REJESTRATOR_AR_EEPROM_GOOD) != 0)
       {
         //Робимо копію тільки тоді, коли структура інформації реєстратора успішно зчитана і сформована контрольна сума
         if (
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_INFO_REJESTRATOR_AR_EEPROM_BIT    ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_INFO_REJESTRATOR_AR_EEPROM_BIT ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_INFO_REJESTRATOR_AR_EEPROM_BIT    ) == 0)
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_INFO_REJESTRATOR_AR_EEPROM_BIT    ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_INFO_REJESTRATOR_AR_EEPROM_BIT ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_INFO_REJESTRATOR_AR_EEPROM_BIT    ) == 0)
            ) 
         {
           //На даний моммент не іде читання-запис структури інформації реєстратора, тому можна здійснити копіювання
@@ -10214,14 +10214,14 @@ void TIM2_IRQHandler(void)
     if (periodical_tasks_TEST_INFO_REJESTRATOR_DR != 0)
     {
       //Стоїть у черзі активна задача зроботи резервні копії даних
-      if ((state_i2c_task & STATE_INFO_REJESTRATOR_DR_EEPROM_GOOD) != 0)
+      if ((state_eeprom_task & STATE_INFO_REJESTRATOR_DR_EEPROM_GOOD) != 0)
       {
         //Робимо копію тільки тоді, коли структура інформації реєстратора успішно зчитана і сформована контрольна сума
         if (
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_INFO_REJESTRATOR_DR_EEPROM_BIT    ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_INFO_REJESTRATOR_DR_EEPROM_BIT ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_INFO_REJESTRATOR_DR_EEPROM_BIT    ) == 0)
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_DR_EEPROM_BIT) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_INFO_REJESTRATOR_DR_EEPROM_BIT    ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_INFO_REJESTRATOR_DR_EEPROM_BIT ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_INFO_REJESTRATOR_DR_EEPROM_BIT    ) == 0)
            ) 
         {
           //На даний моммент не іде читання-запис структури інформації реєстратора, тому можна здійснити копіювання
@@ -10246,14 +10246,14 @@ void TIM2_IRQHandler(void)
     if (periodical_tasks_TEST_RESURS != 0)
     {
       //Стоїть у черзі активна задача зроботи резервні копії даних
-      if ((state_i2c_task & STATE_RESURS_EEPROM_GOOD) != 0)
+      if ((state_eeprom_task & STATE_RESURS_EEPROM_GOOD) != 0)
       {
         //Робимо копію тільки тоді, коли інформаціz успішно зчитана і сформована контрольна сума
         if (
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_WRITING_RESURS_EEPROM_BIT    ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_START_READ_RESURS_EEPROM_BIT ) == 0) &&
-            (_CHECK_SET_BIT(control_i2c_taskes, TASK_READING_RESURS_EEPROM_BIT    ) == 0)
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_WRITE_RESURS_EEPROM_BIT) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_WRITING_RESURS_EEPROM_BIT    ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_START_READ_RESURS_EEPROM_BIT ) == 0) &&
+            (_CHECK_SET_BIT(control_eeprom_taskes, TASK_READING_RESURS_EEPROM_BIT    ) == 0)
            ) 
         {
           //На даний моммент не іде читання-запис ресурсу вимикача, тому можна здійснити копіювання

@@ -246,8 +246,8 @@ extern unsigned int save_new_rang_oldr_from_gmm(unsigned int, unsigned int, unsi
 extern unsigned int save_new_rang_buttons_from_gmm(unsigned int, unsigned int, unsigned short int, unsigned int);
 
 extern ErrorStatus check_errors_i2c(void);
-extern unsigned int start_write_buffer_via_I2C(uint32_t, uint32_t, uint8_t volatile*, uint32_t);
-extern unsigned int start_read_buffer_via_I2C(uint32_t, uint32_t, uint8_t volatile*, uint32_t);
+extern unsigned int start_write_buffer_via_I2C(uint32_t, uint32_t, uint8_t*, uint32_t);
+extern unsigned int start_read_buffer_via_I2C(uint32_t, uint32_t, uint8_t*, uint32_t);
 extern void main_routines_for_i2c(void);
 extern void error_start_i2c(void);
 
@@ -275,6 +275,7 @@ extern void detector_kuta_nzz(int*);
 
 extern void directional_mtz(int*, unsigned int);
 
+extern void main_routines_for_spi1(void);
 extern void main_function_for_dataflash_resp(int);
 extern void main_function_for_dataflash_req(int);
 extern void start_checking_dataflash(void);
@@ -323,8 +324,8 @@ extern void I2C_ER_IRQHandler(void);
 extern void DMA_StreamI2C_Tx_IRQHandler(void);
 extern void DMA_StreamI2C_Rx_IRQHandler(void);
 extern void SPI_ADC_IRQHandler(void);
-extern void DMA_StreamSPI_DF_Rx_IRQHandler(void);
-extern void SPI_DF_IRQHandler(void);
+extern void DMA_StreamSPI_EDF_Rx_IRQHandler(void);
+extern void SPI_EDF_IRQHandler(void);
 extern void USARTRS485_IRQHandler(void);
 extern void DMA_StreamRS485_Tx_IRQHandler(void);
 extern void EXITI_POWER_IRQHandler(void);

@@ -2,6 +2,17 @@
 #define __TYPE_DEFINITION__
 
 #define SRAM1 _Pragma("location=\"variables_RAM1\"")
+#define SRAM1_AR _Pragma("location=\"Analog_Registrator_Buffer\"")
+
+#ifndef I2C_EEPROM
+#define TxBuffer_SPI            TxBuffer_SPI_EDF
+#define RxBuffer_SPI            RxBuffer_SPI_EDF
+#define control_eeprom_taskes   control_spi1_taskes
+#else
+#define TxBuffer_SPI            TxBuffer_SPI_DF
+#define RxBuffer_SPI            RxBuffer_SPI_DF
+#define control_eeprom_taskes   control_i2c_taskes
+#endif
 
 typedef struct
 {
@@ -278,7 +289,7 @@ typedef struct
 
   //Комунікація
   unsigned int name_of_cell[MAX_CHAR_IN_NAME_OF_CELL];//І'мя ячейки
-  unsigned int volatile address;                      //Адреса
+  unsigned int address;                               //Адреса
   int speed_RS485;                                    //швидкість обміну
                                                         // 0 - 9600
                                                         // 1 - 14400
@@ -342,7 +353,7 @@ typedef struct
   unsigned int number_bytes;
   
   //Вказівник на буфер (корисний)
-  uint8_t volatile* point_buffer;
+  uint8_t *point_buffer;
 
 } __DRIVER_I2C;
 

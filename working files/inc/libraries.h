@@ -19,6 +19,7 @@
 #include <stdlib.h>
 
 #pragma section = "variables_RAM1"
+#pragma section = "Analog_Registrator_Buffer"
 
 #ifdef SYSTEM_VIEWER_ENABLE
 #include "SEGGER_SYSVIEW.h"

@@ -247,8 +247,8 @@ unsigned int save_new_rang_oldr_from_gmm(unsigned int, unsigned int, unsigned in
 unsigned int save_new_rang_buttons_from_gmm(unsigned int, unsigned int, unsigned short int, unsigned int);
 
 ErrorStatus check_errors_i2c(void);
-unsigned int start_write_buffer_via_I2C(uint32_t, uint32_t, uint8_t volatile*, uint32_t);
-unsigned int start_read_buffer_via_I2C(uint32_t, uint32_t, uint8_t volatile*, uint32_t);
+unsigned int start_write_buffer_via_I2C(uint32_t, uint32_t, uint8_t*, uint32_t);
+unsigned int start_read_buffer_via_I2C(uint32_t, uint32_t, uint8_t*, uint32_t);
 void main_routines_for_i2c(void);
 void error_start_i2c(void);
 
@@ -276,6 +276,7 @@ void detector_kuta_nzz(int*);
 
 void directional_mtz(int*, unsigned int);
 
+void main_routines_for_spi1(void);
 void main_function_for_dataflash_resp(int);
 void main_function_for_dataflash_req(int);
 void start_checking_dataflash(void);

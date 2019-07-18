@@ -1773,7 +1773,8 @@ void SPI_ADC_IRQHandler(void)
           if((prescaler_ar & MASKA_BIT_FOR_PRESCALER) == 0)
           {
             //Масив миттєвих аналогових виборок для аналогового реєстратора
-            array_ar[index_array_ar_current++] = data_tmp;
+//            array_ar[index_array_ar_current++] = data_tmp;
+            AR_WRITE(index_array_ar_current, data_tmp);
           }
         }
         //Індекс цифрового осцилографа
@@ -1790,7 +1791,11 @@ void SPI_ADC_IRQHandler(void)
           for (unsigned int i = 0; i < N_BIG; i++)  active_functions_trg[i] |= *(label_to_active_functions_source + i);
 
           unsigned short int *label_to_active_functions_trg = (unsigned short int*)active_functions_trg;
-          for(unsigned int i = 0; i < number_word_digital_part_ar; i++) array_ar[index_array_ar_current++] = *(label_to_active_functions_trg + i);
+          for(unsigned int i = 0; i < number_word_digital_part_ar; i++) 
+          {
+//            array_ar[index_array_ar_current++] = *(label_to_active_functions_trg + i);
+            AR_WRITE(index_array_ar_current, *(label_to_active_functions_trg + i));
+          }
           //Індекс масиву об'єднаних виборок для аналогового реєстратора
           if (index_array_ar_current >= SIZE_BUFFER_FOR_AR) index_array_ar_current = 0;/*Умова мала б бути ==, але щоб перестахуватися на невизначену помилку я поставив >=*/
           
@@ -2449,7 +2454,7 @@ void calc_power_and_energy(void)
     if ((POWER_CTRL->IDR & POWER_CTRL_PIN) != (uint32_t)Bit_RESET)
     {
       //Запускаємо запис у EEPROM
-      _SET_BIT(control_i2c_taskes, TASK_START_WRITE_ENERGY_EEPROM_BIT);
+      _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_ENERGY_EEPROM_BIT);
     }
     else number_minutes = PERIOD_SAVE_ENERGY_IN_MINUTES; /*якщо живлення відновиться, щоб зразу була подана команда на запис*/
 

@@ -189,6 +189,7 @@
           <state>STM32F2XX</state>
           <state>USE_USB_OTG_FS</state>
           <state>KEYBOARD_VER_1</state>
+          <state>I2C_EEPROM</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -4042,9 +4043,9 @@
     <group>
       <name>inc</name>
       <group>
-        <name>EEPROM_RTC</name>
+        <name>EEPROM</name>
         <file>
-          <name>$PROJ_DIR$\..\..\working files\inc\const_eeprom_rtc.h</name>
+          <name>$PROJ_DIR$\..\..\working files\inc\const_eeprom.h</name>
         </file>
       </group>
       <group>
@@ -4087,6 +4088,12 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\working files\inc\variables_global.h</name>
+        </file>
+      </group>
+      <group>
+        <name>I2C</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\working files\inc\const_i2c.h</name>
         </file>
       </group>
       <group>
@@ -4276,9 +4283,9 @@
     <group>
       <name>src</name>
       <group>
-        <name>EEPROM_RTC</name>
+        <name>EEPROM</name>
         <file>
-          <name>$PROJ_DIR$\..\..\working files\src\eeprom_rtc.c</name>
+          <name>$PROJ_DIR$\..\..\working files\src\eeprom.c</name>
         </file>
       </group>
       <group>
@@ -4297,6 +4304,12 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\working files\src\start_settings.c</name>
+        </file>
+      </group>
+      <group>
+        <name>I2C</name>
+        <file>
+          <name>$PROJ_DIR$\..\..\working files\src\i2c.c</name>
         </file>
       </group>
       <group>

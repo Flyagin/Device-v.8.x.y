@@ -2582,7 +2582,7 @@ void fix_change_settings(unsigned int setting_rang, unsigned int source)
   changed_settings = CHANGED_ETAP_ENDED;
   
   //Запускаємо запис у EEPROM
-  _SET_BIT(control_i2c_taskes, TASK_START_WRITE_SETTINGS_EEPROM_BIT);
+  _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_SETTINGS_EEPROM_BIT);
 }
 /*****************************************************/
 
