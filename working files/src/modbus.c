@@ -4070,47 +4070,83 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
       }
     case MA_NAME_CHAR_1_2:
       {
+#ifndef KZ
         temp_value = ('K' << 8) + 'i';
+#else
+        temp_value = ('A' << 8) + 'k';
+#endif
         break;
       }
     case MA_NAME_CHAR_3_4:
       {
+#ifndef KZ
         temp_value = ('e' << 8) + 'v';
+#else
+        temp_value = ('t' << 8) + 'o';
+#endif
         break;
       }
     case MA_NAME_CHAR_5_6:
       {
+#ifndef KZ
         temp_value = ('p' << 8) + 'r';
+#else
+        temp_value = ('b' << 8) + 'e';
+#endif
         break;
       }
     case MA_NAME_CHAR_7_8:
       {
+#ifndef KZ
         temp_value = ('i' << 8) + 'b';
+#else
+        temp_value = ('P' << 8) + 'r';
+#endif
         break;
       }
     case MA_NAME_CHAR_9_10:
       {
+#ifndef KZ
         temp_value = ('o' << 8) + 'r';
+#else
+        temp_value = ('i' << 8) + 'l';
+#endif
         break;
       }
     case MA_NAME_CHAR_11_12:
       {
+#ifndef KZ
         temp_value = ('M' << 8) + 'R';
+#else
+        temp_value = ('M' << 8) + 'Z';
+#endif
         break;
       }
     case MA_NAME_CHAR_13_14:
       {
+#ifndef KZ
         temp_value = ('Z' << 8) + 'S';
+#else
+        temp_value = ('D' << 8) + ' ';
+#endif
         break;
       }
     case MA_NAME_CHAR_15_16:
       {
+#ifndef KZ
         temp_value = ('0' << 8) + '5';
+#else
+        temp_value = (' ' << 8) + ' ';
+#endif
         break;
       }
     case MA_NAME_CHAR_17_18:
       {
+#ifndef KZ
         temp_value = ('L' << 8) + '_';
+#else
+        temp_value = (' ' << 8) + ' ';
+#endif
         break;
       }
     case MA_VERSION_SW:
@@ -5216,8 +5252,8 @@ inline unsigned int Get_data(unsigned char *data, unsigned int address_data, uns
   {
     unsigned char *label_to_time_array;
     
-    if (copying_time == 0) label_to_time_array = time;
-    else label_to_time_array = time_copy;
+    if (copying_time == 2) label_to_time_array = time_copy;
+    else label_to_time_array = time;
     
     switch (address_data)
     {
@@ -13743,15 +13779,15 @@ void modbus_rountines(unsigned int type_interface)
                 {  
                   //Іде намагання встановити новий час-дату, тому робимо копію часу
                   unsigned char *label_to_time_array, *label_calibration;
-                  if (copying_time == 0)
-                  {
-                    label_to_time_array = time;
-                    label_calibration = &calibration;
-                  }
-                  else
+                  if (copying_time == 2)
                   {
                     label_to_time_array = time_copy;
                     label_calibration = &calibration_copy;
+                  }
+                  else
+                  {
+                    label_to_time_array = time;
+                    label_calibration = &calibration;
                   }
                   for(unsigned int index = 0; index < 7; index++) time_edit[index] = *(label_to_time_array + index);
                   calibration_edit = *label_calibration;
@@ -14569,15 +14605,15 @@ void modbus_rountines(unsigned int type_interface)
 
                       //Робимо копію часу, дати і калібровки на яку ми накладемо зміни, перевіримо їх на достовірність і потім, якщо провірка пройде вдало, то запишемо їх у мікросхему RTC
                       unsigned char *label_to_time_array, *label_calibration;
-                      if (copying_time == 0)
-                      {
-                        label_to_time_array = time;
-                        label_calibration = &calibration;
-                      }
-                      else
+                      if (copying_time == 2)
                       {
                         label_to_time_array = time_copy;
                         label_calibration = &calibration_copy;
+                      }
+                      else
+                      {
+                        label_to_time_array = time;
+                        label_calibration = &calibration;
                       }
                       for(unsigned int index = 0; index < 7; index++) time_edit[index] = *(label_to_time_array + index);
                       calibration_edit = *label_calibration;

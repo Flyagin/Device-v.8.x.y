@@ -1,5 +1,11 @@
 #include "header.h"
 
+#define BACKLIGHTING_ON         1
+#define BACKLIGHTING_OFF        300
+
+uint32_t time_backlighting =    BACKLIGHTING_ON*100;
+
+
 /*****************************************************/
 //Перевірка на помилки у процесі транзакції черз I2C
 /*****************************************************/
@@ -790,6 +796,54 @@ void TIM4_IRQHandler(void)
     GPIO_SetBits(KEYBOARD, KEYBOARD_SW_4_PIN);
     /***************************/
   
+    uint32_t  maska_all_keys = (uint32_t)(
+                                          (1<<BIT_KEY_ENTER) |
+                                          (1<<BIT_KEY_DOWN) |
+                                          (1<<BIT_KEY_RIGHT) |
+                                          (1<<BIT_KEY_ESC) |
+                                          (1<<BIT_KEY_LEFT) |
+                                          (1<<BIT_KEY_UP) |
+                                          (1<<BIT_KEY_1) |
+                                          (1<<BIT_KEY_2) |
+                                          (1<<BIT_KEY_3) |
+                                          (1<<BIT_KEY_4) |
+                                          (1<<BIT_KEY_5) |
+                                          (1<<BIT_KEY_6)
+                                         );
+    if ((LCD_BL->ODR & LCD_BL_PIN) != (uint32_t)Bit_RESET)
+    {
+      //Підсвітка ввімкнута
+      if ((new_state_keyboard & maska_all_keys) != 0) time_backlighting = BACKLIGHTING_OFF*100;
+      if (
+           (time_backlighting > 0) && /*випадок старту з викнутою підсвіткою*/
+           (--time_backlighting == 0) /*закінчився час роботи приладу без підсвітки після старту приладу*/
+         )
+      {
+        //Умова вивмкнення підсвітки
+        LCD_BL->BSRRH = LCD_BL_PIN;
+      }
+      
+    }
+    else
+    {
+      //Підсвітка вимкнута
+      if (
+          ((new_state_keyboard & maska_all_keys) != 0) /*умова ввімкнення підсвітки по натискуванні кнопки*/
+          ||  
+          (
+           (time_backlighting > 0)  && /*випадок старту з викнутою підсвіткою*/
+           (--time_backlighting == 0) && /*закінчився час роботи приладу без підсвітки після старту приладу*/
+           ((POWER_CTRL->IDR & POWER_CTRL_PIN) != (uint32_t)Bit_RESET) /*є оперативне живлення*/
+          )   
+         )
+      {
+        //Умова ввімкнення підсвітки після старту приладу
+        LCD_BL->BSRRL = LCD_BL_PIN;
+        time_backlighting = BACKLIGHTING_OFF*100;
+        new_state_keyboard &= (unsigned int)(~maska_all_keys);
+      }
+    }
+  
     /***************************/
     //Обробка алгоритму функціональних кнопок
     /***************************/
@@ -919,16 +973,17 @@ void TIM4_IRQHandler(void)
       if(++number_seconds >= 60)
       {
         number_seconds = 0;
-        if(
-           ((POWER_CTRL->IDR & POWER_CTRL_PIN) != (uint32_t)Bit_RESET) &&
-           (++number_minutes >= PERIOD_SAVE_ENERGY_IN_MINUTES)
-          )   
+        if((POWER_CTRL->IDR & POWER_CTRL_PIN) != (uint32_t)Bit_RESET)
         {
+          reinit_LCD = true;
+          if (++number_minutes >= PERIOD_SAVE_ENERGY_IN_MINUTES)
+          {
           number_minutes = 0;
           
           //Запускаємо запис у EEPROM
           _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_ENERGY_EEPROM_BIT);
         }
+      }
       }
       
       //Робота з таймерами простою USB
@@ -970,6 +1025,115 @@ void TIM4_IRQHandler(void)
         resurs_global_min = 0xffffffff;
         resurs_global_max = 0;
       }
+    }
+    /***********************************************************/
+
+    /***********************************************************/
+    //Корекція десятих і сотих секунд
+    /***********************************************************/
+    if (copying_time == 0)
+    {
+      //На даний момент не іде встановлення або зчитування часу
+
+      /*
+      Помічаємо, що зараз  будемо змінювати час (при цьому встановлення або
+      читання з мікросхеми не може початися, бо ми у перериванні, а ці операції
+      виконуються з фонового режиму; відбір же даних буде іти коректно)
+      */
+      copying_time = 2; 
+      
+      unsigned int rozrjad = 0;
+      for(unsigned int i = 0; i < 7; i++)
+      {
+        unsigned int data_tmp = 10*((time[i] >> 4) & 0xf) + (time[i] & 0xf);
+        
+        unsigned int porig;
+        switch (i)
+        {
+        case 0:
+        case 6:
+          {
+            porig = 99;
+            break;
+          }
+        case 1:
+        case 2:
+          {
+            porig = 59;
+            break;
+          }
+        case 3:
+          {
+            porig = 23;
+            break;
+          }
+        case 4:
+          {
+            unsigned int month = 10*((time[5] >> 4) & 0xf) + (time[5] & 0xf);
+            if (month == 0x2/*BCD*/)
+            {
+              unsigned int year = 10*((time[6] >> 4) & 0xf) + (time[6] & 0xf);
+              if (
+                  ((year & 0x3) == 0) && /*остача від ділення на 4*/
+                  (
+                   ((year % 100) != 0) /* ||
+                   ((year % 400) == 0) */ /*не кратний 100 або кратний 400*/
+                  )  
+                 )
+              {
+                porig = 29;
+              } 
+              else
+              {
+                porig = 28;
+              }
+            }
+            else if (
+                     ((month <= 0x7/*BCD*/) && ( (month & 1))) ||
+                     ((month >  0x7/*BCD*/) && (!(month & 1)))
+                    ) 
+            {
+              porig = 31;
+            }
+            else
+            {
+              porig = 30;
+            }
+            break;
+          }
+        case 5:
+          {
+            porig = 12;
+            break;
+          }
+        default:
+          {
+            //Якщо сюди дійшла програма, значить відбулася недопустива помилка, тому треба зациклити програму, щоб вона пішла на перезагрузку
+            total_error_sw_fixed(103);
+          }
+        }
+        
+        if ((++data_tmp) > porig)
+        {
+          rozrjad = 1;
+          
+          if ((i == 4) || (i == 5)) data_tmp = 1;
+          else data_tmp = 0;
+        }
+        else rozrjad = 0;
+        
+        unsigned int high = data_tmp / 10;
+        unsigned int low = data_tmp - high*10;
+        time[i] = (high << 4) | low;
+        
+        if (rozrjad == false) break;
+      }
+
+      copying_time = 1; 
+      
+      for(unsigned int i = 0; i < 7; i++) time_copy[i] = time[i];
+      
+      copying_time = 0; 
     }
     /***********************************************************/
 
@@ -1743,10 +1907,15 @@ void EXITI_POWER_IRQHandler(void)
 
       //Виставляємо повідомлення про цю подію
       _SET_BIT(clear_diagnostyka, EVENT_DROP_POWER_BIT);
+      reinit_LCD = true;
     }
     else
     {
       //Живлення пропало на вході блоку живлення
+
+      //Вимикаємо підсвітку
+      LCD_BL->BSRRH = LCD_BL_PIN;
+      time_backlighting = 0;
 
       //Виставляємо повідомлення про цю подію
       _SET_BIT(set_diagnostyka, EVENT_DROP_POWER_BIT);
@@ -1767,4 +1936,7 @@ void EXITI_POWER_IRQHandler(void)
 //
 /*****************************************************/
 /*****************************************************/
+
+#undef BACKLIGHTING_ON
+#undef BACKLIGHTING_OFF
 

@@ -61,12 +61,22 @@
   * @{
   */ 
 #define USBD_LANGID_STRING              0x409
-#define USBD_MANUFACTURER_STRING        "PromAvtomatika"
 
+#ifndef KZ
+#define USBD_MANUFACTURER_STRING        "PromAvtomatika"
+#else
+#define USBD_MANUFACTURER_STRING        "ActobePrilad"
+#endif
+
+#ifndef KZ
 #define USBD_PRODUCT_HS_STRING          "MRZS-05L"
+#else
+#define USBD_PRODUCT_HS_STRING          "MZD"
+#endif
+
 #define USBD_SERIALNUMBER_HS_STRING     "AIAR.466452.001"
 
-#define USBD_PRODUCT_FS_STRING          "MRZS-05L"
+#define USBD_PRODUCT_FS_STRING          USBD_PRODUCT_HS_STRING
 #define USBD_SERIALNUMBER_FS_STRING     "48DC525D3830001"
 
 #define USBD_CONFIGURATION_HS_STRING    "VCP Config"
