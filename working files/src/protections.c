@@ -8224,7 +8224,7 @@ void fix_undefined_error_ar(unsigned int* carrent_active_functions)
   _SET_BIT(carrent_active_functions, RANG_OUTPUT_LED_DF_REG_DEFECT);
   //Переводимо режим роботи з реєстратором у сатн "На даний момент ніких дій з дискретним реєстратором не виконується" 
   continue_previous_record_ar = 0; /*помічаємо, що ми не чикаємо деактивації всіх джерел активації аналогового реєстратора*/
-  state_ar_record = STATE_AR_NO_RECORD;
+  state_ar_record_prt = STATE_AR_NO_RECORD | ((unsigned int)(1 << 31));
   //Скидаєсо сигнал роботи аналогового реєстратора
   _CLEAR_BIT(carrent_active_functions, RANG_OUTPUT_LED_DF_REG_WORK_A_REJESTRATOR);
 
@@ -8360,7 +8360,7 @@ inline void analog_registrator(unsigned int* carrent_active_functions)
           else
           {
             //Переводимо режим роботи із аналоговим реєстратором у стан "Запус нового запису"
-            state_ar_record = STATE_AR_START;
+            state_ar_record_prt = STATE_AR_START | ((unsigned int)(1 << 31));
             //Виставляємо активну функцію
             _SET_BIT(carrent_active_functions, RANG_OUTPUT_LED_DF_REG_WORK_A_REJESTRATOR);
 
@@ -8462,7 +8462,7 @@ inline void analog_registrator(unsigned int* carrent_active_functions)
             )  
           {
             //Коректна умова зупинки роботи аналогового реєстратора
-            state_ar_record = STATE_AR_NO_RECORD;
+            state_ar_record_prt = STATE_AR_NO_RECORD | ((unsigned int)(1 << 31));
 
             //Виставляємо команду запису структури аналогового реєстратора у EEPROM
             _SET_BIT(control_eeprom_taskes, TASK_START_WRITE_INFO_REJESTRATOR_AR_EEPROM_BIT);
@@ -9714,6 +9714,11 @@ inline void main_protection(void)
   trigger_functions_RS485[5] |= activated_functions[5];
 
   copying_active_functions = 0; //Помічаємо, що обновлення значення активних функцій завершене
+  if ((state_ar_record_prt  & ((unsigned int)(1 << 31))) != 0) 
+  {
+    state_ar_record_prt &= (unsigned int)(~(1 << 31));
+    state_ar_record = state_ar_record_prt;
+  }
   
   /*
   Робимо копію значення активних функцій для того, щоб коли ці знаення будуть
@@ -10143,7 +10148,7 @@ void TIM2_IRQHandler(void)
          )
       {
         //Теоретично ця помилка ніколи не малаб реєструватися
-        /*Якщо виникла така ситуація то треба зациклити ропаграму, щоб вона пішла на перезапуск - 
+        /*Якщо виникла така ситуація то треба зациклити програму, щоб вона пішла на перезапуск - 
         бо відбулася недопустима незрозуміла помилка у розраховуваних параметрах аналогового реєстратора.
         Не зрозумілу чого вона виникла, коли і де, коректність роботи пригоамного забезпечення під питанням!*/
         total_error_sw_fixed(5);

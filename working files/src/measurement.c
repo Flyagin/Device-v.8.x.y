@@ -1823,7 +1823,10 @@ void SPI_ADC_IRQHandler(void)
     /**************************************************/
 
     //”правл≥нн€ аналоговим реЇмстратором
-    if ((state_ar_record == STATE_AR_START) || (state_ar_record == STATE_AR_SAVE_SRAM_AND_SAVE_FLASH))
+    if (
+        ((state_ar_record == STATE_AR_START) && (number_postfault_slices != 0)) || 
+        (state_ar_record == STATE_AR_SAVE_SRAM_AND_SAVE_FLASH)
+       )
     {
       static unsigned int uncopied_postfault_time_sapmles;
 
