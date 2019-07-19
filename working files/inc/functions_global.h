@@ -233,7 +233,7 @@ void restart_monitoring_RS485(void);
 void start_transmint_data_via_RS_485(unsigned int);
 unsigned short int  AddCRC(unsigned char, unsigned short int);
 void modbus_rountines(unsigned int);
-void Error_modbus(unsigned char, unsigned char, unsigned char, unsigned char *);
+void Error_modbus(unsigned int, unsigned int, unsigned int, unsigned char *);
 unsigned int Get_data(unsigned char *, unsigned int, unsigned int);
 unsigned int Set_data(unsigned short int, unsigned int, unsigned int, unsigned int, unsigned int);
 unsigned int Get_data_file(unsigned char*, unsigned char*, unsigned int*, unsigned int);
