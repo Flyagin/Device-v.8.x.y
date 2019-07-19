@@ -13011,6 +13011,8 @@ inline void start_transmint_data_via_RS_485(unsigned int count)
   unsigned int current_time_tim4 = TIM4->CNT;
   unsigned int delta_time;
 
+  RxBuffer_RS485_count = 0;
+
   //¬ираховуЇмо час, прот€гом €кого п≥дготовлювалас€ в≥дпов≥дь
   if (
       (current_time_tim4 > time_last_receive_byte) ||
@@ -15087,6 +15089,6 @@ void modbus_rountines(unsigned int type_interface)
       restart_monitoring_RS485();
     }
   }
-  *received_count = 0;
+  if (type_interface == USB_RECUEST) *received_count = 0;
 }
 /***********************************************************************************/
