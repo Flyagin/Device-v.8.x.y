@@ -579,8 +579,77 @@ enum __mtz_abc_direction_const {
 #define MASKA_TRIGGER_SIGNALES_4                  0
 
 #define MASKA_TRIGGER_SIGNALES_5               (unsigned int)(                   \
-     (1 << (RANG_OUTPUT_LED_DF_REG_BLOCK_AVR_VID_ZAKHYSTIV - 160))      /*162*/  \
-   | (1 << (RANG_OUTPUT_LED_DF_REG_BLOCK_KRATN_AVR         - 160))      /*167*/  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_BLOCK_AVR_VID_ZAKHYSTIV - 160))        \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_BLOCK_KRATN_AVR         - 160))        \
+)
+/*****************************************/
+
+/*****************************************/
+//Макска для блокування зміни груп  уставок
+/*****************************************/
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_0 0
+
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_1 (unsigned int)(                  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_WORK_BO - 32))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_WORK_BV - 32))                               \
+)
+
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_2 (unsigned int)(                  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZ1 - 64))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN1_VPERED - 64))                       \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN1_NAZAD - 64))                        \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZPN1 - 64))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_MTZ1 - 64))                                  \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZ2 - 64))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN2_VPERED - 64))                       \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN2_NAZAD - 64))                        \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZPN2 - 64))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_MTZ2 - 64))                                  \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZ3 - 64))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN3_VPERED - 64))                       \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN3_NAZAD - 64))                        \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZPN3 - 64))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_MTZ3 - 64))                                  \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZ4 - 64))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN4_VPERED - 64))                       \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZN4_NAZAD - 64))                        \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_MTZPN4 - 64))                             \
+)
+
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_3 (unsigned int)(                  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_MTZ4 - 96))                                  \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_NZZ - 96))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_NZZ - 96))                                   \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_3I0 - 96))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_3I0 - 96))                                   \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_3U0 - 96))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_3U0 - 96))                                   \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_APV_WORK - 96))                              \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_APV_ZMN - 96))                            \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_APV_ZMN - 96))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_F1_ACHR - 96))                            \
+)
+
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_4 (unsigned int)(                  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_PO_F2_ACHR - 128))                           \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_ACHR_CHAPV - 128))                           \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_UROV - 128))                              \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UROV1 - 128))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UROV2 - 128))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_ZOP - 128))                               \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_ZOP - 128))                                  \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_UMIN1 - 128))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UMIN1 - 128))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_UMIN2 - 128))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UMIN2 - 128))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_UMAX1 - 128))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UMAX1 - 128))                                \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_PO_UMAX2 - 128))                             \
+   | (1 << (RANG_OUTPUT_LED_DF_REG_UMAX2 - 128))                                \
+)
+
+#define MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_5 (unsigned int)(                  \
+     (1 << (RANG_OUTPUT_LED_DF_REG_PUSK_AVR - 160))                             \
 )
 /*****************************************/
 

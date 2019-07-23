@@ -9080,43 +9080,13 @@ inline void main_protection(void)
     _SET_BIT(clear_diagnostyka, ERROR_SELECT_GRUPY_USRAVOK);
     
   if (
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_WORK_BO   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_WORK_BV   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_MTZ1   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_MTZ1      ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_MTZ2   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_MTZ2      ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_MTZ3   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_MTZ3      ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_MTZ4   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_MTZ4      ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_UMAX1  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UMAX1     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_UMAX2  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UMAX2     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_UMIN1  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UMIN1     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_UMIN2  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UMIN2     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_ZOP    ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_ZOP       ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_F1_ACHR) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_F2_ACHR) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_ACHR_CHAPV) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_APV_ZMN) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_APV_ZMN   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PUSK_AVR  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_APV_WORK  ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_UROV   ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UROV1     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_UROV2     ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_NZZ    ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_NZZ       ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_3I0    ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_3I0       ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_PO_3U0    ) ) !=0 ) ||
-      (( _CHECK_SET_BIT(active_functions, RANG_OUTPUT_LED_DF_REG_3U0       ) ) !=0 )
-     ) 
+      ((active_functions[0] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_0) != 0) ||
+      ((active_functions[1] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_1) != 0) ||
+      ((active_functions[2] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_2) != 0) ||
+      ((active_functions[3] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_3) != 0) ||
+      ((active_functions[4] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_4) != 0) ||
+      ((active_functions[5] & MASKA_SIGNALES_FOR_LOCK_GROUP_PICKUP_5) != 0)
+    )
   {
     //Іде блокування груп уставок - група уставок залишається тою, яка вибрана попередньо
     _SET_BIT(activated_functions, RANG_OUTPUT_LED_DF_REG_BLK_GRUP_USTAVOK_VID_ZACHYSTIV);
