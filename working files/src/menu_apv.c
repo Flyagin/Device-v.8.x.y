@@ -383,6 +383,11 @@ void make_ekran_control_apv()
       name_string_tmp[index_1][index_2] = name_string[index_language][index_1][index_2];
   }
   
+  unsigned int temp_data;
+          
+  if(current_ekran.edition == 0) temp_data = current_settings.control_apv;
+  else temp_data = edition_settings.control_apv;
+          
   /******************************************/
   //Виключаємо поля, які не треба відображати
   /******************************************/
@@ -395,6 +400,9 @@ void make_ekran_control_apv()
     for (int current_index = INDEX_ML_CTRAPV_STARTED_FROM_MTZ1; current_index <= INDEX_ML_CTRAPV_STARTED_FROM_MTZ4; current_index++ )
     {
       int i = current_index - additional_current;
+      unsigned int maska_1, maska_2;
+      maska_1 = (1 << i) - 1;
+      maska_2 = (unsigned int)(~maska_1);
     
       if ((i+1) <= position_temp) position_temp--;
       do
@@ -407,6 +415,10 @@ void make_ekran_control_apv()
         i++;
       }
       while (i < (MAX_ROW_FOR_CONTROL_APV - additional_current));
+    
+      unsigned int temp_data_1 = (temp_data >> 1) & maska_2;
+      temp_data = (temp_data & maska_1) | temp_data_1;
+
       additional_current++;
     }
   }
@@ -471,11 +483,6 @@ void make_ekran_control_apv()
         
         unsigned int index_ctr = (index_of_ekran>>1);
 
-        unsigned int temp_data;
-          
-        if(current_ekran.edition == 0) temp_data = current_settings.control_apv;
-        else temp_data = edition_settings.control_apv;
-          
         for (unsigned int j = 0; j<MAX_COL_LCD; j++) working_ekran[i][j] = information[index_language][(temp_data >> index_ctr) & 0x1][j];
         current_ekran.position_cursor_x = cursor_x[index_language][(temp_data >> index_ctr) & 0x1];
       }

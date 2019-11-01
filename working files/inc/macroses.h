@@ -1,6 +1,8 @@
 #ifndef __MACROSES__
 #define __MACROSES__
 
+#define MASKA_FOR_BIT(_n)      (1 << _n)
+
 #define _CHECK_SET_BIT(_array, _number_bit)                                     \
     (_array[_number_bit >> 5] & ( (unsigned int)( 1 << (_number_bit & 0x1f)) ) )                           
 
